@@ -1,0 +1,97 @@
+<template>
+    <div class="c-batch-remark">
+        <page-dialog :title="title" v-model="dialog" @open="open" size="small" :close-on-click-modal="false">
+            <el-row class="mt-sm" style="text-align: center;">
+                <el-checkbox label="到货交期统一为：" v-model="delivery_days.isCheck"></el-checkbox>
+                <ui-limit-number
+                    v-model="delivery_days.number"
+                    :limit="0"
+                    :min="0"
+                    class="inline enter-result s-width-mini"></ui-limit-number>
+            </el-row>
+            <el-row class="mt-sm" style="text-align: center;">
+                <el-checkbox label="备货天数统一为：" v-model="stocking_days.isCheck"></el-checkbox>
+                <ui-limit-number
+                    v-model="stocking_days.number"
+                    :limit="0"
+                    :min="0"
+                    class="inline enter-result s-width-mini"></ui-limit-number>
+            </el-row>
+            <div slot="footer">
+                <el-button type="primary"
+                           size="mini"
+                           @click.native="submit"
+                           class="inline">确定</el-button>
+                <el-button size="mini"
+                           @click.native="dialog = false"
+                           class="inline">取消</el-button>
+            </div>
+        </page-dialog>
+    </div>
+</template>
+<style lang="stylus">
+
+</style>
+<script>
+    export default {
+        data() {
+            return {
+                dialog:this.value,
+                delivery_days:{
+                    isCheck:false,
+                    number:''
+                },
+                stocking_days:{
+                    isCheck:false,
+                    number:''
+                }
+            }
+        },
+        methods:{
+            open(){
+                this.delivery_days.isCheck = false;
+                this.stocking_days.isCheck = false;
+                this.delivery_days.number = '';
+                this.stocking_days.number = '';
+            },
+            submit(){
+                if(!this.delivery_days.isCheck&&!this.stocking_days.isCheck){
+                    this.$message({type:'warning',message:'请至少勾选一项设置后再提交！'});
+                    return
+                }
+                if(this.delivery_days.isCheck&&this.delivery_days.number===''){
+                    this.$message({type:'warning',message:'请填写到货交期后再提交！'});
+                    return
+                }
+                if(this.stocking_days.isCheck&&this.stocking_days.number===''){
+                    this.$message({type:'warning',message:'请填写备货天数后再提交！'});
+                    return
+                }
+                let data = {};
+                if(this.delivery_days.isCheck&&this.delivery_days.number!==''){
+                    data.delivery_days = this.delivery_days.number
+                }
+                if(this.stocking_days.isCheck&&this.stocking_days.number!==''){
+                    data.stocking_days = this.stocking_days.number
+                }
+                this.$emit('batch-setting',data);
+            },
+        },
+        watch:{
+            dialog(val){
+                this.$emit('input',val);
+            },
+            value(val){
+                this.dialog = val;
+            },
+        },
+        props:{
+            value:{},
+            title:{}
+        },
+        components: {
+            uiLimitNumber:require('@/components/ui-limit-number').default,
+            pageDialog:require('@/components/page-dialog.vue').default
+        }
+    }
+</script>

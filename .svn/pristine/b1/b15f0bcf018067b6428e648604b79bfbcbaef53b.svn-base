@@ -1,0 +1,34 @@
+/**
+ * Created by wuchuguang on 18-11-22.
+ */
+import {http} from '../lib/http-plus';
+//平台公司资料列表
+export const url_get_account_company = "get|account-company";
+export const api_get_account_company = function (data) {
+    return http(url_get_account_company,data);
+};
+//平台公司资料编辑
+export const url_get_account_edit = "get|account-company/:id";
+export const api_get_account_edit = function (id) {
+    return http(Url2(url_get_account_edit, {id:id}));
+};
+//平台公司资料列表新增保存
+export const url_post_account_company = "post|account-company";
+export const api_post_account_company = function (data) {
+    return http(url_post_account_company,data);
+};
+//平台公司资料列表编辑保存
+export const url_put_account_edit = "put|account-company/:id";
+export const api_put_account_edit = function (id,data) {
+    return http(Url2(url_put_account_edit, {id:id}),data);
+};
+//平台公司资料删除
+export const url_get_account_delete = "delete|account-company/:id";
+export const api_get_account_delete= function (id) {
+    return http(Url2(url_get_account_delete, {id:id}));
+};
+//所有公司 account-company/company
+export const url_get_account_company_ = "get|account-company/company";
+export const api_get_account_company_ = function () {
+    return http(url_get_account_company_);
+};

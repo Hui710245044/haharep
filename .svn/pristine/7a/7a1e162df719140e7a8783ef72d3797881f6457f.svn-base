@@ -1,0 +1,129 @@
+<template>
+    <el-table class="scroll-bar"
+              :data="table.list"
+              v-resize="{height:41}"
+              v-loading="loading"
+              element-loading-text="玩命加载中..."
+              @sort-change="sort_change"
+              :default-sort = "{prop: 'date', order: 'descending'}"
+              highlight-current-row
+              @row-click="row_click"
+    >
+        <div slot="empty" class="no-data-reminder">
+            <i></i>
+            {{ emptyText }}
+        </div>
+        <el-table-column label="SPU" prop="spu"></el-table-column>
+        <el-table-column label="上架时间" prop="publish_time" sortable width="170">
+
+        </el-table-column>
+        <el-table-column label="所属平台">
+            <template slot-scope="scope">
+                {{scope.row.channel_id|channel}}
+            </template>
+        </el-table-column>
+        <el-table-column label="分类" prop="category_chain" width="170"></el-table-column>
+        <el-table-column label="开发员" prop="developer_name"></el-table-column>
+        <el-table-column label="产品状态" prop="sales_status_txt"></el-table-column>
+        <el-table-column label="刊登总数" prop="total_cnt" sortable></el-table-column>
+        <el-table-column label="eBay平台"  inline-template>
+            <span class="operate" @click="detail(row)">{{row.ebay_cnt}}</span>
+        </el-table-column>
+        <el-table-column label="亚马逊平台"  inline-template>
+            <span class="operate" @click="detail(row)">{{row.amazon_cnt}}</span>
+        </el-table-column>
+        <el-table-column label="Wish平台"  inline-template>
+            <span class="operate" @click="detail(row)">{{row.wish_cnt}}</span>
+        </el-table-column>
+        <el-table-column label="速卖通平台" inline-template>
+            <span class="operate" @click="detail(row)">{{row.aliexpress_cnt}}</span>
+        </el-table-column>
+        <el-table-column label="Joom平台" inline-template>
+            <span class="operate" @click="detail(row)">{{row.joom_cnt}}</span>
+        </el-table-column>
+        <el-table-column label="MyMall平台"  inline-template>
+            <span class="operate" @click="detail(row)">{{row.mymall_cnt}}</span>
+        </el-table-column>
+        <el-table-column label="Shopee平台"  inline-template>
+            <span class="operate" @click="detail(row)">{{row.shopee_cnt}}</span>
+        </el-table-column>
+    </el-table>
+</template>
+
+<script>
+    export default {
+        data() {
+            return {
+                channel_id:''
+            }
+        },
+        computed: {
+            emptyText() {
+                return this.firstTime ? '请查询数据' : '暂无数据'
+            }
+        },
+        methods: {
+            sort_change(val) {
+                this.$emit('sort-change',val)
+            },
+            detail(val){
+                this.$emit('get-detail',val,this.channel_id);
+            },
+            row_click(row,e,col){
+                if(col.label==='亚马逊平台'){
+                    this.channel_id = 2
+                }else if(col.label==='eBay平台'){
+                    this.channel_id = 1
+                }else if(col.label==='Wish平台'){
+                    this.channel_id = 3
+                }else if(col.label==='速卖通平台'){
+                    this.channel_id = 4
+                }else if(col.label==='Joom平台'){
+                    this.channel_id = 7
+                }else if(col.label==='MyMall平台'){
+                    this.channel_id = 8
+                }else if(col.label==='Shopee平台'){
+                    this.channel_id = 9
+                };
+                this.$emit('update:c_id',this.channel_id)
+            }
+        },
+        filters:{
+            channel(val){
+              switch (val){
+                  case 1:
+                      return 'Ebay';
+                  break;
+                  case 2:
+                      return '亚马逊';
+                  break;
+                  case 3:
+                      return 'wish';
+                  break;
+                  case 4:
+                      return '速卖通';
+                  break;
+                  case 7:
+                      return 'Joom';
+                  break;
+                  case 8:
+                      return 'mymall';
+                  break;
+                  case 9:
+                      return 'shopee';
+                  break
+              }
+            }
+        },
+        props:{
+            loading:{},
+            firstTime:{},
+            table:{},
+            c_id:{}
+        }
+    }
+</script>
+
+<style scoped>
+
+</style>

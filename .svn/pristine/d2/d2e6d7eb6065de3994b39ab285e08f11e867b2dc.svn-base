@@ -1,0 +1,46 @@
+<template>
+    <el-form ref="accountInfo"
+             :model="form"
+             label-width="135px"
+             class="c-vat-info">
+        <el-form-item label="Vat："
+                      prop="vat">
+            <el-input v-model.number="form.vat"
+                      v-if="flag!==1">
+                <template slot="append">%</template>
+            </el-input>
+            <span v-else>{{form.vat}}%</span>
+        </el-form-item>
+        <el-form-item label="" v-if="flag!==1">
+            <el-button size="mini"
+                       @click="submit"
+                       type="primary">确 定
+            </el-button>
+            <el-button size="mini">取 消
+            </el-button>
+        </el-form-item>
+    </el-form>
+</template>
+
+<style lang="stylus" scoped>
+
+</style>
+
+<script>
+    export default {
+        name: "tax-rate",
+        data() {
+            return {}
+        },
+        methods: {
+            submit(){
+                this.$emit('vat');
+            }
+        },
+        props: {
+            form:{},
+            flag:{}
+        },
+    }
+</script>
+

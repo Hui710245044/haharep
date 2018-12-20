@@ -1,0 +1,96 @@
+<template>
+    <page-dialog v-model="dialog"
+                 size="large"
+                 :title="title"
+                 :close-on-click-modal="false">
+        <div>
+                <div class="mb-sm">SPU标题：{{form.title_zh}}</div>
+                <b style="margin-left:57px;">{{comEnTitle}}</b>
+                <b class="ml-lg" v-if="comEnTitle">（ <span :class="[comEnTitle.length>75?'red':'']">{{comEnTitle.length}}</span>/75 ）</b>
+        </div>
+        <move-title :source-data="form.sourceData" :style-prop="styleProp"></move-title>
+        <div slot="footer">
+            <request-button req-key="api_save_ebay_titles"
+                            :mintime="300"
+                            @click="submit">确定</request-button>
+            <el-button size="mini"
+                       @click.native="cancel">取消</el-button>
+        </div>
+    </page-dialog>
+</template>
+<style lang="stylus">
+
+</style>
+<script>
+    import {api_save_ebay_titles} from '@/api/ebay-title-key';
+    export default{
+        data(){
+            return{
+                dialog:this.value,
+                styleProp:{
+                    minHeight:'40px',
+                    width:'100%',
+                }
+            }
+        },
+        methods:{
+            filter_name(list){
+                return list.map(row=>row.name)
+            },
+            submit(){
+                if(this.comEnTitle.length>75) return this.$message({type:'warning',message:'当前标题超出字符限制，请修改！'});
+                let data = {
+                    id:this.form.id||'',
+                    titles:{
+                        en:{
+                            front:this.filter_name(this.form.sourceData.frontList),
+                            middle:this.filter_name(this.form.sourceData.middleList),
+                            back:this.filter_name(this.form.sourceData.backList),
+                        }
+                    }
+                };
+                this.$http(api_save_ebay_titles,this.form.goods_id,data).then(res => {
+                    this.dialog = false;
+                    this.$message({type:'success',message:res.message||res});
+                    let copyData = clone(data);
+                    this.$set(copyData,'goods_id',this.form.goods_id);
+                    this.$emit('submit',[copyData]);
+                }).catch(code => {
+                    this.$message({type:'error',message:code.message||code})
+                }).finally(()=>{
+                    this.$reqKey('api_save_ebay_titles',false)
+                })
+            },
+            cancel(){
+                this.dialog = false;
+            }
+        },
+        computed:{
+            comEnTitle(){
+                let value = [];
+                if(this.form&&this.form.sourceData){
+                    value = [...this.form.sourceData.frontList,...this.form.sourceData.middleList,...this.form.sourceData.backList].map(row=>row.name);
+                }
+                return value.join(' ');
+            },
+        },
+        watch:{
+            dialog(val){
+                this.$emit('input',val);
+            },
+            value(val){
+                this.dialog = val;
+            }
+        },
+        props:{
+            value:{},
+            form:{},
+            title:{}
+        },
+        components:{
+            pageDialog:require('@/components/page-dialog.vue').default,
+            moveTitle:require('./move-title.vue').default,
+            labelItem:require('@/components/label-item.vue').default,
+        }
+    }
+</script>

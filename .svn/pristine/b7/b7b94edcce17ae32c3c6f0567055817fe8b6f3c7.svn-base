@@ -1,0 +1,56 @@
+<template>
+    <page class="p-reveive-manage-abnormal">
+        <el-tabs v-model="activeName" @tab-click="handleClick">
+            <el-tab-pane label="拆包异常" name="arrival_abnormal">
+                <arrival-abnormal ref="arrival_abnormal"></arrival-abnormal>
+            </el-tab-pane>
+            <el-tab-pane label="收包异常" name="receive_abnormal">
+                <receive-abnormal ref="receive_abnormal"></receive-abnormal>
+            </el-tab-pane>
+        </el-tabs>
+    </page>
+</template>
+
+<style lang="stylus">
+
+</style>
+
+<script>
+    import {api_abnormal_count} from "@/api/ready-receive";
+
+    export default {
+        page: {
+            devinfo: {
+                frontEnd: '张志勇',
+                backEnd: '黄伟杰',
+                createTime: '2018-11-24',
+                updateTime: '2018-11-24'
+            },
+        },
+        refresh() {
+            this.init();
+            this.activeName = 'arrival_abnormal';
+        },
+        data() {
+            return {
+                activeName: 'arrival_abnormal',
+            }
+        },
+        methods: {
+            init() {
+               this.$http(api_abnormal_count).then(res => {
+                   console.log(`xxxxxx:`,res);
+               }).catch(code => {
+                   this.$message({type: 'error', message: code.message || code});
+               })
+            },
+            handleClick() {
+                this.$refs[this.activeName].search();
+            }
+        },
+        components: {
+            arrivalAbnormal: require('./arrival-abnormal/index.vue').default,
+            receiveAbnormal: require('./receive-abnormal/index.vue').default,
+        }
+    }
+</script>

@@ -1,0 +1,78 @@
+<template>
+    <div class="c-test">
+        <span v-autoload="downs"></span>
+        <button @click="c ? downs : down2">DOWNS</button>
+        <button @click="c = !c">DOWNS</button>
+        <div>
+            {{$t('message.hello')}}
+
+        </div>
+        <button @click="loadLang">LoadLang</button>
+    </div>
+</template>
+<style lang="stylus">
+
+</style>
+<script>
+    import {readWorkbookFromLocalFile} from '@/lib/xlsx';
+    export default {
+        data() {
+            return {
+                c:false,
+                value: 'ceshi',
+                imgs:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1535798325813&di=725200257c7a104416f910847f9023b0&imgtype=0&src=http%3A%2F%2Fi0.hdslb.com%2Fbfs%2Farchive%2Fd9479fa6834697c0c39c386a0f69f0a78b685bf9.jpg'
+            }
+        },
+        mounted() {
+            this.$http(new Promise((succ => {
+                setTimeout(() => succ(), 4000);
+            }))).loading('#laaaaaa');
+            this.$http(new Promise((succ => {
+                setTimeout(() => succ(), 4000);
+            }))).loading('#laaaaaa2')
+        },
+        methods: {
+            loadLang(){
+                loadLanguageAsync('en');
+            },
+            down2(){
+                console.log(`down2!!!`);
+                return new Promise((succ) =>{
+                    setTimeout(() => {succ()}, 10000);
+                })
+            },
+            downs(){
+                console.log(`downs!!!`);
+                return new Promise((succ) =>{
+                    setTimeout(() => {succ()}, 10000);
+                })
+
+            },
+            change({target}) {
+                console.log(target)
+                let fileArr = Array.prototype.slice.call(target.files);
+                fileArr.forEach(file => {
+                    readWorkbookFromLocalFile(file).then(res => {
+                        console.log(res);
+                    })
+                })
+            },
+            xls() {
+                this.$refs.file.click();
+            },
+            value_changed(val) {
+
+            },
+            query(str) {
+                return [111, 2223, 333]
+            },
+            find(f) {
+                console.log(f);
+            }
+        },
+        components: {
+            simditor: require('../components/simditor').default,
+            testSlot: require('./test-slot').default,
+        }
+    }
+</script>

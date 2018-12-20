@@ -1,0 +1,214 @@
+import {api_get_channel,api_get_channel_company_info,api_add_company_info,
+    api_get_company_detail_info,api_keep_company_account,api_get_account_log,
+    api_update_company_info,api_keep_update_vat} from '@/api/company-info';
+import datef from "datef";
+export function get_channel(that) {//适用平台
+    let arr=JSON.parse(localStorage.getItem('platform'));
+    if(!arr||!arr.length){
+        that.$http(api_get_channel).then(res=>{
+            that.platform=res;
+            localStorage.setItem('platform',JSON.stringify(that.platform));
+        }).catch(({fail, error}) =>{
+            fail&&that.$message({type:'warning',message:fail});
+            error&&that.$message({type:'error', message:error});
+        });
+    }else {
+        that.platform=arr;
+    }
+    that.platform.forEach(row=>{
+        that.$http(api_get_channel_company_info,{channel_id:row.value}).then(res1=>{
+            let len=res1.data.length;
+            that.$set(row,'count',len);
+            that.$set(row,'label',row.label+`(${len})`);
+        }).catch(({fail, error}) =>{
+            fail&&that.$message({type:'warning',message:fail});
+            error&&that.$message({type:'error', message:error});
+        });
+    });
+    that.channels=that.platform;
+}
+export function init_data(that) {//添加数据初始化
+    that.form={
+        company:'',
+        charter_url:'',
+        company_type:'',
+        company_registration_number:'',
+        corporation:'',
+        corporation_id:'',
+        corporation_id_front:'',
+        corporation_id_contrary:'',
+        company_time:'',
+        company_address_zip:'',
+        corporation_address_zip:'',
+        status:0,
+        channel:[]
+    };
+    that.businessPicture=[];
+    that.IDFront=[];
+    that.IDBack=[];
+    that.accounts=[{label:''}];
+    that.channelData=[];
+}
+
+export function add_company_info(that) {
+    let validator=that.$refs.comp[0].validator;
+    if(validator){
+        let valid=that.$refs.comp[0].validator();
+        if(valid instanceof Promise){
+            valid.then(() =>{
+                add_base_info();
+            }).catch(errors =>{
+                that.$message({type:'warning',message:`${errors}`});
+            });
+            return;
+        }else if(valid===true){
+            return add_base_info();
+        }else{
+            return
+        }
+    }
+    function add_base_info() {
+        if(that.form.company_time){
+            that.form.company_time=datef('YYYY-MM-dd',that.form.company_time)
+        }
+        that.$http(api_add_company_info,that.form).then(res=>{
+            that.form=res.data;
+            that.activeName='accountInfo';
+            let find=that.tabs.find(row=>row.name===that.activeName);
+            if(find){
+                that.$set(find,'isView',true);
+            }
+            that.$message({type:'success',message:res.message||res});
+        }).catch(({fail, error}) =>{
+            fail&&that.$message({type:'warning',message:fail});
+            error&&that.$message({type:'error', message:error});
+        });
+    }
+}
+
+export function keep_account(that) {
+    let param={
+        collection_account:that.form.collection_account,
+        credit_card:that.form.credit_card
+    };
+    that.$http(api_keep_company_account,that.form.id,param).then(res=>{
+        that.$set(that.form,'collection_account',res.data.collection_account);
+        that.$set(that.form,'credit_card',res.data.credit_card);
+        if(!that.id){
+            that.activeName='taxRate';
+            let find=that.tabs.find(row=>row.name===that.activeName);
+            if(find){
+                that.$set(find,'isView',true);
+            }
+        }
+        that.$message({type:'success',message:res.message||res});
+    }).catch(({fail, error}) =>{
+        fail&&that.$message({type:'warning',message:fail});
+        error&&that.$message({type:'error', message:error});
+    });
+}
+
+export function look_edit(that) {//查看编辑
+    that.$http(api_get_company_detail_info,that.id).then(res=>{
+        if(!res.company_time){
+            that.$set(res,'company_time','');
+        }
+        if(!res.channel||!res.channel.length){
+            res.channel=[];
+        }else{
+            that.channels.forEach(row=>{
+                res.channel.forEach(item=>{
+                    if(Number(item)===row.value){
+                        that.channelData.push(row.label);
+                    }
+                })
+            });
+        }
+        if(that.flag===2){
+            if(res.company_time){
+                that.$set(res,'company_time',res.company_time*1000);
+            }else{
+                that.$set(res,'company_time','');
+            }
+            if(res.collection_account.length){
+                that.accounts=res.collection_account.map(row=>{return {label:row}})
+            }
+        }else{
+            let account = res.collection_account.join(',');
+            that.$set(res,'collection_account',account);
+        }
+        if(res.charter_url){
+            that.businessPicture=[{name:res.charter_url}];
+        }
+        if(res.corporation_id_front){
+            that.IDFront=[{name:res.corporation_id_front}];
+        }
+        if(res.corporation_id_contrary){
+            that.IDBack=[{name:res.corporation_id_contrary}];
+        }
+        that.form=res;
+    }).catch(({fail, error}) =>{
+        fail&&that.$message({type:'warning',message:fail||fail});
+        error&&that.$message({type:'error', message:error||error});
+    });
+}
+
+export function look_at_operation_log(that) { //operation-log
+    let id=that.flag?that.id:that.form.id;
+    that.$http(api_get_account_log,id).then(res=>{
+        res.data.forEach(row=>{
+            that.$set(row,'remark',row.remark.join(','))
+        });
+        that.$set(that.form,'log',res.data);
+    }).catch(({fail, error}) =>{
+        fail&&this.$message({type:'warning',message:fail});
+        error&&this.$message({type:'error', message:error});
+    });
+}
+
+export function update_company_info(that) {//
+    let data={
+        company:that.form.company,
+        charter_url:that.form.charter_url,
+        company_type:that.form.company_type,
+        company_registration_number:that.form.company_registration_number,
+        corporation:that.form.corporation,
+        corporation_id:that.form.corporation_id,
+        corporation_id_front:that.form.corporation_id_front,
+        corporation_id_contrary:that.form.corporation_id_contrary,
+        company_time:that.form.company_time,
+        company_address_zip:that.form.company_address_zip,
+        corporation_address_zip:that.form.corporation_address_zip,
+        status:that.form.status,
+        channel:that.form.channel
+    };
+    that.$http(api_update_company_info,that.form.id,data).then(res=>{
+        that.$message({type:'success',message:res.message||res});
+        // Object.assign()
+    }).catch(({fail, error}) =>{
+        fail&&that.$message({type:'warning',message:fail});
+        error&&that.$message({type:'error', message:error});
+    });
+}
+
+export function keep_update_vats(that) {
+    that.$http(api_keep_update_vat,that.form.id,{vat:that.form.vat}).then(res=>{
+        if(!that.id){
+            that.activeName='operationLog';
+            let find=that.tabs.find(row=>row.name===that.activeName);
+            if(find){
+                that.$set(find,'isView',true);
+            }
+        }
+        if(that.flag!==1){
+            look_at_operation_log(that);
+        }
+        that.$message({type:'success',message:res.message||res});
+    }).catch(({fail, error}) =>{
+        fail&&that.$message({type:'warning',message:fail});
+        error&&that.$message({type:'error', message:error});
+    });
+
+}
+
+

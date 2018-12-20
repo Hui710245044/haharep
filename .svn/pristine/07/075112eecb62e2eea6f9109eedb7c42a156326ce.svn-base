@@ -1,0 +1,180 @@
+<template>
+    <page class="channel-profit">
+        <search :searchData="searchData"
+                :clears="clears"
+                @search="init">
+        </search>
+        <div class="inline mt-xs mb-xs ml-sm">
+            <el-button class="mr-sm"
+                       size="mini"
+                       type="primary"
+                       @click.native="addCompany">添加
+            </el-button>
+        </div>
+        <table-mod :loading="tableLoading"
+                   :table-data="tableData.list"
+                   @tableMod="tableMod"
+                   :first-loading="firstLoading">
+        </table-mod>
+        <el-pagination
+                class="page-fixed"
+                @size-change="handle_size_change"
+                @current-change="handle_current_change"
+                :current-page="tableData.page"
+                :page-sizes="[20, 50, 100, 200]"
+                :page-size="tableData.pageSize"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="tableData.count">
+        </el-pagination>
+        <edit-dialog v-model="wicketShow"
+                     :addData="addData"
+                     :handleRow="handleRow"
+                     @add_company="add_company">
+        </edit-dialog>
+    </page>
+</template>
+
+<script>
+    import {api_get_account_company,api_get_account_edit,
+        api_post_account_company,api_put_account_edit} from '@/api/company-info'
+    export default {
+        name: "index",
+        data(){
+            return{
+                addData:{},
+                handleRow:{
+                    flag:0, //0添加 1编辑 2查看
+                    row:{}
+                },
+                wicketShow:false,
+                tableLoading:false,
+                firstLoading:false,
+                tableData:{
+                    page:0,
+                    pageSize:20,
+                    count:0,
+                    list:[]
+                },
+                show:false,
+                searchData:{
+                    id:'',
+                    corporation:'',
+                    time_start:'',
+                    time_end:''
+                },
+                clears:{
+                    id:'',
+                    corporation:'',
+                    time_start:'',
+                    time_end:''
+                },
+            }
+        },
+        mounted(){
+            this.init();
+        },
+        methods:{
+            add_company(){//新增保存、更新保存
+                let data = clone(this.addData);
+                if(data.collection_account.length<=0){
+                    data.collection_account=JSON.stringify([]);
+                }
+                if(this.handleRow.flag===0){
+                    this.$http(api_post_account_company,data).then(res=>{
+                        this.wicketShow=false;
+                        this.$message({type:'success',message: res.message});
+                        this.init();
+                    }).catch(({fail, error}) =>{
+                        fail&&this.$message({type:'warning',message:fail||fail});
+                        error&&this.$message({type:'error', message:error||error});
+                    });
+                }else if(this.handleRow.flag===1){
+                    this.$http(api_put_account_edit,this.handleRow.row.id,data).then(res=>{
+                        this.wicketShow=false;
+                        this.$message({type:'success',message: res.message});
+                        this.init();
+                    }).catch(({fail, error}) =>{
+                        fail&&this.$message({type:'warning',message:fail||fail});
+                        error&&this.$message({type:'error', message:error||error});
+                    });
+                }else {
+                    this.wicketShow=false;
+                }
+            },
+            tableMod(val){
+                if(val.flag===3){//删除
+                    this.tableData.list=this.tableData.list.filter(res=>{
+                        return res.id!==val.row.id;
+                    });
+                    this.tableData.count-=1;
+                }else {//编辑查看
+                    this.$http(api_get_account_edit,val.row.id).then(res=>{
+                        if(typeof res.collection_account==='object'){
+                            res.collection_account='';
+                        }
+                        this.addData=res;
+                        this.handleRow=val;
+                        this.wicketShow=true;
+                    }).catch(({fail, error}) =>{
+                        fail&&this.$message({type:'warning',message:fail||fail});
+                        error&&this.$message({type:'error', message:error||error});
+                    });
+                }
+
+            },
+            handle_size_change(val){
+                this.tableData.pageSize = val;
+                this.init();
+            },
+            handle_current_change(val){
+                this.tableData.page = val;
+                this.init();
+            },
+            init(){
+                let data=clone(this.searchData);
+                this.$set(data,'page',this.tableData.page);
+                this.$set(data,'pageSize',this.tableData.pageSize);
+                data.time_start=this.searchData.time_start?datef('YYYY-MM-dd', this.searchData.time_start/1000):'';
+                data.time_end=this.searchData.time_end?datef('YYYY-MM-dd', this.searchData.time_end/1000):'';
+                this.$http(api_get_account_company,data).then(res=>{
+                    this.tableData.list=res.data;
+                    this.tableData.list.forEach(val=>{
+                        if(typeof val.collection_account==='object'){
+                            val.collection_account='';
+                        }
+                    });
+                    this.tableData.count = res.count;
+                }).catch(({fail, error}) =>{
+                    fail&&this.$message({type:'warning',message:fail||fail});
+                    error&&this.$message({type:'error', message:error||error});
+                });
+            },
+            addCompany(){//添加
+                this.addData={
+                    company:'',
+                    company_type:'',
+                    company_registration_number:'',
+                    corporation:'',
+                    collection_account:'',
+                    credit_card:'',
+                    vat:'',
+                    create_time:'',
+                    company_address_zip:'',
+                    corporation_address_zip:'',
+                    company_time:'',
+                };
+                this.handleRow.flag=0;
+                this.wicketShow=true;
+            }
+        },
+        components:{
+            search:require('./search.vue').default,
+            tableMod:require('./table.vue').default,
+            editDialog:require('./edit-dialog.vue').default,
+        }
+    }
+</script>
+
+<style scoped>
+
+</style>

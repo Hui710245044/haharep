@@ -1,0 +1,7 @@
+export default {
+    confirm:'确定',
+    close:'关闭',
+    cancel:'取消',
+    search:'搜索',
+    clear:'清空搜索',
+}

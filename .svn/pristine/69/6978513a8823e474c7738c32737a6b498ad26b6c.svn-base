@@ -1,0 +1,87 @@
+<template>
+    <div class="c-upload-img">
+        <div v-if="image"
+             @click="get_click">
+            <img v-lazy="image" alt="">
+        </div>
+        <div v-else-if="edit"
+             @click="get_click"
+             class="img-bg el-icon-upload2">
+            <span>{{label}}</span>
+        </div>
+        <input type="file"
+               ref="input"
+               hidden
+               @change="handleChange">
+    </div>
+</template>
+
+<style lang="stylus">
+    .c-upload-img{
+        * {
+            width: 100%;
+            height: 100%;
+        }
+    }
+</style>
+
+<script>
+    export default {
+        name: "upload-img",
+        data() {
+            return {
+                image:this.value,
+            }
+        },
+        watch: {
+            image(val){
+                this.$emit('input', val);
+            },
+            value(val){
+                this.image = val;
+            }
+        },
+        methods: {
+            handleChange(event){
+                const files = event.target.files;
+                if (!files) {return;}
+                let fileArr = Array.prototype.slice.call(files);
+                const file = fileArr[0];
+                if(!this.validate(file)){
+                    return;
+                }
+                let  reader = new FileReader();
+                reader.readAsDataURL(file) ;
+                reader.onload =(e)=> {
+                    this.image = e.target.result;
+                };
+            },
+            get_click(){
+                if(this.edit){
+                    this.$refs.input.click()
+                }else {
+                    return false;
+                }
+
+            }
+        },
+        props: {
+            edit:{
+                default(){
+                    return true;
+                }
+            },
+            label:{
+                default:'添加图片'
+            },
+            validate:{
+                type:Function,
+                default:function (name) {
+                    return true
+                }
+            },
+            value:{}
+        },
+    }
+</script>
+

@@ -1,0 +1,8 @@
+export default{
+    list:'Listing management',
+    Aup:'Amazon upload',
+    notPub:'Not published',
+    record:'Publication record',
+    drafts:'Drafts',
+    all:'All'
+}

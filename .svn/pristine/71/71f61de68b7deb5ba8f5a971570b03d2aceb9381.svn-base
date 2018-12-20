@@ -1,0 +1,210 @@
+<template>
+    <page-dialog :title="addName"
+                 v-model="show"
+                 size="small"
+                 :close-on-click-modal="false"
+                 @change="changeDialog">
+        <el-form :model="addData"
+                 :rules="rules"
+                 class="mt-sm"
+                 label-width="190px"
+                 ref="addData">
+            <el-form-item label="添加时间：" v-if="handleRow.flag!==0" prop="add_time" >
+                <el-col :span="14">
+                    <span>{{transTime(this.addData.create_time)}}</span>
+                </el-col>
+            </el-form-item>
+            <el-form-item label="公司名称：" prop="company">
+                <el-col :span="14">
+                    <el-input v-model="addData.company" :disabled="disabled"></el-input>
+                </el-col>
+            </el-form-item>
+            <el-form-item label="公司类型：" prop="type_company">
+                <el-col :span="14">
+                    <el-input v-model="addData.company_type" :disabled="disabled"></el-input>
+                </el-col>
+            </el-form-item>
+            <el-form-item label="公司注册号：" prop="register_account">
+                <el-col :span="14">
+                    <el-input v-model="addData.company_registration_number" :disabled="disabled"></el-input>
+                </el-col>
+            </el-form-item>
+            <el-form-item label="公司法人：" prop="company_own">
+                <el-col :span="14">
+                    <el-input v-model="addData.corporation" :disabled="disabled"></el-input>
+                </el-col>
+            </el-form-item>
+            <el-form-item label="法人身份证号：" prop="owner_certificates">
+                <el-col :span="14">
+                    <el-input v-model="addData.owner_certificates" :disabled="disabled"></el-input>
+                </el-col>
+            </el-form-item>
+            <el-form-item label="收款账户：" prop="collection_account">
+                <el-col :span="14">
+                    <el-input v-model="addData.collection_account" :disabled="disabled"></el-input>
+                </el-col>
+            </el-form-item>
+            <el-form-item label="信用卡：" prop="credit_id">
+                <el-col :span="14">
+                    <el-input v-model="addData.vat" :disabled="disabled"></el-input>
+                </el-col>
+            </el-form-item>
+            <el-form-item label="VAT：" prop="account_VAT">
+                <el-col :span="14">
+                    <el-input v-model="addData.vat" :disabled="disabled"></el-input>
+                </el-col>
+            </el-form-item>
+            <el-form-item label="公司成立时间：" prop="register_time">
+                <el-col :span="14">
+                    <el-date-picker
+                        v-model="addData.company_time"
+                        type="date"
+                        :disabled="disabled"
+                        placeholder="选择日期"
+                        class="inline date mr-sm"
+                        :picker-options="inputTimeEnd">
+                    </el-date-picker>
+                </el-col>
+            </el-form-item>
+
+            <el-form-item label="公司注册地址+邮编：" prop="address_email">
+                <el-col :span="14">
+                    <el-input v-model="addData.company_address_zip" :disabled="disabled"></el-input>
+                </el-col>
+            </el-form-item>
+            <el-form-item label="法人地址+邮编：" prop="owner_email">
+                <el-col :span="14">
+                    <el-input v-model="addData.corporation_address_zip" :disabled="disabled"></el-input>
+                </el-col>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button req-key="addFormYmx" size="mini" type="primary" @click="add_company">确 定</el-button>
+            <el-button size="mini" @click.native="cancel">取 消</el-button>
+        </div>
+    </page-dialog>
+</template>
+
+<script>
+    import pageDialog from '@/components/page-dialog.vue';
+    export default {
+        name: "edit-dialog",
+        data(){
+            var validateVAT = (rule, value, callback) => {
+                if (value !== '') {
+                    var reg = /^\d+(?:\.\d{2})?$/;
+                    if(!reg.test(value)){
+                        callback(new Error('只能为纯数字，可以保留2位小数'));
+                    }
+                }  else {
+                    callback();
+                }
+            };//
+            var validateaccount = (rule, value, callback) => {
+                if (value !== '') {
+                    var reg = /^\d+$/;
+                    if(!reg.test(value)){
+                        callback(new Error('只能为数字'));
+                    }
+                }  else {
+                    callback();
+                }
+            };
+            return{
+                disabled:false,
+                inputTimeEnd: {
+                    disabledDate: (time)=> {
+                        return time.getTime() > Date.now();
+                    }
+                },//结束时间
+                show:this.value,
+                addName:'',
+                rules:{
+                    company:[{required: true, message: '请输入公司名称', trigger: 'change' }],
+                    vat:[{ validator: validateVAT,trigger: 'blur' }],
+                    collection_account:[{validator: validateaccount,trigger: 'blur' }]
+                }
+
+
+            }
+        },
+        computed:{
+
+        },
+        mounted(){
+        },
+        watch:{
+            'handleRow.flag'(val){
+                if(val===2){
+                    this.disabled=true;
+                }else {
+                    this.disabled=false;
+                }
+            },
+            value(val){
+                this.show=val;
+            },
+            show(val){
+                this.$emit('input',val)
+            }
+        },
+        methods:{
+            transTime(val){
+                let date =  new Date(val*1000);
+                let Y = date.getFullYear() + '-';
+                let M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+                let D = date.getDate() + ' ';
+                let h = date.getHours() + ':';
+                let m = date.getMinutes() + ':';
+                let s = date.getSeconds();
+                return Y+M+D+h+m+s;
+            },
+            add_company(){
+                this.$refs.addData.validate((bool)=>{
+                    if(!!bool){
+                        this.$emit('add_company');//-------事件抛出
+                    }else{
+                        setTimeout(() => {
+                            this.$reqKey('addFormYmx', false);
+                        }, 300)
+                    }
+                });
+            },
+            changeDialog(val){
+                if(!!val){
+                    // console.log(val,this.handleRow)
+                    if(this.handleRow.flag===0){
+                        this.addName='添加公司资料'
+                    }else {
+                        let name = this.handleRow.flag===2?'查看公司：':'编辑公司：';
+                        this.addName=`${name + this.handleRow.row.company}的资料`
+                    }
+                }
+            },
+            cancel(){
+                this.show = false
+            },
+        },
+        components:{pageDialog,
+            requestButton:require('@/global-components/request-button').default
+        },
+        props:{
+            addData:{
+                type:Object,
+                required:true
+            },
+            handleRow:{
+                type:Object,
+                required:true
+            },
+            value:{
+                type:Boolean,
+                required:true,
+            }
+        }
+    }
+</script>
+
+<style scoped>
+
+</style>

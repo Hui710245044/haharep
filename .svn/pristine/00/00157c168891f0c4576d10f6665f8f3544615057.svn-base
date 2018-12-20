@@ -1,0 +1,139 @@
+<template>
+    <div>
+        <el-table :data="tableData"
+                  class="scroll-bar"
+                  v-resize="{height:41}"
+                  v-loading="loading"
+                  :default-sort = "{prop: 'id', order: 'descending'}"
+                  highlight-current-row
+                  element-loading-text="玩命加载中">
+            <el-table-column label="NO" inline-template prop="id">
+                <div>
+                    <ui-tip :content="`${row.id}`" :width="98"></ui-tip>
+                </div>
+            </el-table-column>
+            <el-table-column label="公司名称" inline-template>
+                <div>
+                    <ui-tip :content="`${row.company || '暂无站点'}`" :width="98"></ui-tip>
+                </div>
+            </el-table-column>
+            <el-table-column label="公司注册号" inline-template >
+                <div>
+                    <ui-tip :content="row.company_registration_number" :width="98"></ui-tip>
+                </div>
+            </el-table-column>
+            <el-table-column label="公司法人" inline-template >
+                <div>
+                    <ui-tip :content="row.corporation" :width="98"></ui-tip>
+                </div>
+            </el-table-column>
+            <el-table-column label="收款账号" inline-template>
+                <div>
+                    <ui-tip :content="row.collection_account" :width="98"></ui-tip>
+                </div>
+            </el-table-column>
+            <el-table-column label="VTA(%)" inline-template>
+                <div>
+                    <ui-tip :content="row.vat" :width="98"></ui-tip>
+                </div>
+            </el-table-column>
+            <el-table-column label="公司成立时间" inline-template>
+                <div>
+                    <ui-tip :content="row.create_time | timeFilter" :width="198"></ui-tip>
+                </div>
+            </el-table-column>
+            <el-table-column label="公司注册地址" inline-template width="200">
+                <div>
+                    <ui-tip :content="row.company_address_zip" :width="98"></ui-tip>
+                </div>
+            </el-table-column>
+            <el-table-column label="添加时间" inline-template width="170">
+                <div>
+                    <ui-tip :content="row.create_time | timeFilter" :width="128"></ui-tip>
+                </div>
+            </el-table-column>
+            <el-table-column label="操作">
+                <template slot-scope="scope">
+                    <span class="operate"
+                          @click="edit(scope.row)">编辑</span> |
+                    <span class="operate"
+                          @click="look(scope.row)">查看</span> |
+                    <span class="operate"
+                          @click="deleteRow(scope.row)">删除</span>
+                </template>
+            </el-table-column>
+        </el-table>
+    </div>
+</template>
+
+<script>
+    import {api_get_account_delete} from '@/api/company-info'
+    export default {
+        data(){
+            return{
+                typeRow:{
+                    flag:0,
+                    row:{}
+                }
+            }
+        },
+        filters:{
+            timeFilter(val){
+                if(val){
+                    return datef('YYYY-MM-dd', val);
+                } else {
+                    return "--";
+                }
+            }
+        },
+        computed: {
+        },
+        methods:{
+            edit(row){
+                this.typeRow.flag=1;
+                this.typeRow.row=row;
+                this.$emit('tableMod',this.typeRow)
+            },
+            look(row){
+                this.typeRow.flag=2;
+                this.typeRow.row=row;
+                this.$emit('tableMod',this.typeRow)
+            },
+            deleteRow(row){
+                /*this.typeRow.flag=3;
+                this.typeRow.row=row;
+                this.$emit('tableMod',this.typeRow)*/
+                this.$http(api_get_account_delete,row.id).then(res=>{
+                    this.typeRow.row=row;
+                    this.typeRow.flag=3;
+                    this.$emit('tableMod',this.typeRow);
+                    this.$message({type:'success',message: res.message});
+                }).catch(({fail, error}) =>{
+                    fail&&this.$message({type:'warning',message:fail||fail});
+                    error&&this.$message({type:'error', message:error||error});
+                });
+            }
+        },
+        props:{
+            tableData:{
+                type:Array,
+                required:true
+            },
+            loading:{
+                type:Boolean,
+                require:true
+            },
+            firstLoading: {
+                type: Boolean,
+                required: true
+            }
+        },
+        components:{
+            uiTip:require('../../../components/ui-tip.vue').default,
+        }
+    }
+</script>
+
+<style scoped>
+
+</style>

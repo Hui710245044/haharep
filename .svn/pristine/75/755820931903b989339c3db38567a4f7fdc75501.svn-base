@@ -1,0 +1,166 @@
+<template>
+    <div class="config-site-p-config">
+        <table width="100%" style="border-collapse: collapse;" class="template">
+            <tr v-for="(item, key) in systemInfo" :key="key">
+                <th style="width: 50%"><span>{{item.title}}({{key}})</span></th>
+                <td v-if="item.type === 'enabled_radios'">
+                    <el-radio-group v-model="systemData[key]">
+                        <el-radio v-for="radio in enabledRadios" :label="radio.value" :key="radio.value">
+                            {{radio.label}}
+                        </el-radio>
+                    </el-radio-group>
+                </td>
+                <td v-if="item.type === 'sure_radios'">
+                    <el-radio-group v-model="systemData[key]">
+                        <el-radio v-for="radio in sureRadios" :label="radio.value" :key="radio.value">
+                            {{radio.label}}
+                        </el-radio>
+                    </el-radio-group>
+                </td>
+                <td v-if="item.type === 'radio'">
+                    <el-radio-group v-model="systemData[key]">
+                        <el-radio :label="0">
+                            否
+                        </el-radio>
+                        <el-radio :label="1">
+                            是
+                        </el-radio>
+                    </el-radio-group>
+                </td>
+                <td v-if="item.type === 'input'">
+                    <integer-input v-model="systemData[key]" :min="0" class="inline"></integer-input>
+                    <span>{{item.remark}}</span>
+                </td>
+            </tr>
+        </table>
+        <div class="mt-sm ml-sm">
+            <permission tag="requestButton"
+                        :mintime="300"
+                        :route="apis.url_warehouse_config"
+                        :request="submit" class="inline">提交
+            </permission>
+        </div>
+    </div>
+</template>
+<style lang="stylus">
+    .config-site-p-config {
+        table.template th, .el-table th {
+            background: #eff2f7;
+        }
+    }
+</style>
+<script>
+    import {api_warehouse_config, url_warehouse_config} from "@/api/storeManagement";
+
+    export default {
+        permission: {
+            url_warehouse_config
+        },
+        data() {
+            return {
+                enabledRadios: [
+                    {value: 0, label: '不设置'},
+                    {value: 1, label: '允许'},
+                    {value: 2, label: '不允许'},
+                ],
+                sureRadios: [
+                    {value: 0, label: '不设置'},
+                    {value: 1, label: '是'},
+                    {value: 2, label: '否'},
+                ],
+                systemInfo: {
+                    singleOrMore: {
+                        title: '允许单品多件包裹与单品单件包裹进入同一张拣货单？',
+                        remark: '',
+                        type: 'enabled_radios',
+                    },
+                    moreCarrier: {
+                        title: '允许不同物流商的包裹进入同一张拣货单？',
+                        remark: '',
+                        type: 'enabled_radios',
+                    },
+                    is_auto_check: {
+                        title: '是否触发自动复核成功',
+                        remark: '',
+                        type: 'sure_radios',
+                    },
+                    test_print: {
+                        title: '是否测试打印',
+                        remark: '',
+                        type: 'sure_radios',
+                    },
+                    bind_picking: {
+                        title: '每人最多可以同时绑定？拣货单',
+                        remark: '',
+                        type: 'input',
+                    },
+                    picking_max_quantity: {
+                        title: '默认每张拣货单最大货品数',
+                        remark: '',
+                        type: 'input',
+                    },
+                    package_weight_min_deviation: {
+                        title: '包裹重量误差最大值',
+                        remark: '',
+                        type: 'input',
+                    },
+                    package_weight_max_deviation: {
+                        title: '包裹重量误差最小值',
+                        remark: '',
+                        type: 'input',
+                    },
+                    collection_weight_min_deviation: {
+                        title: '集包重量误差最小值',
+                        remark: '',
+                        type: 'input',
+                    },
+                    collection_weight_max_deviation: {
+                        title: '集包重量误差最大值',
+                        remark: '',
+                        type: 'input',
+                    },
+                    single_manual_value: {
+                        title: '单品多件阀值',
+                        remark: '',
+                        type: 'input',
+                    },
+                    is_allow_stop: {
+                        title: '是否允许结束含有未包包裹的拣货单或周转箱',
+                        remark: '',
+                        type: 'input',
+                    },
+                    shelf_days: {
+                        title: '包裹预接收到上架的天数',
+                        remark: '',
+                        type: 'input',
+                    },
+                    is_divide_platform: {
+                        title: '是否支持平台分库存',
+                        remark: '',
+                        type: 'radio',
+                    },
+                }
+            }
+        },
+        methods: {
+            submit() {
+
+                let postData = clone(this.systemData);
+                return this.$http(api_warehouse_config, this.id, postData).then(res => {
+                    this.$message({type: "success", message: res.message || res})
+                    return Promise.resolve()
+                }).catch(code => {
+                    this.$message({message: code.message || code, type: 'error'});
+                })
+            }
+        },
+        props: {
+            systemData: {},
+            id: {},
+        },
+        components: {
+            requestButton: require('@/global-components/request-button').default,
+            integerInput: require('@/components/integer-input.vue').default,
+        }
+    }
+</script>

@@ -1,0 +1,98 @@
+<template>
+    <page-dialog v-model="visible" @open="open" @close="close" title="测试面单水印设置">
+        <div>
+            <label-item label="水印坐标：" class="mb-xs">
+                <span>x:</span>
+                <integer-input v-model="coordinate.x" :min="0" class="width-xs ml-xs"></integer-input>
+                <span class="ml-sm">y:</span>
+                <integer-input v-model="coordinate.y" :min="0" class="width-xs ml-xs"></integer-input>
+            </label-item>
+            <label-item label="水印内容：">
+                <el-input v-model="mark" class="width-xs"></el-input>
+                <span class="ml-sm red">内容为空时请填’##‘</span>
+            </label-item>
+        </div>
+        <div slot="footer">
+            <el-button type="primary" size="mini" @click.native="sure">打印
+            </el-button>
+            <el-button size="mini" @click.native="visible = false">取消</el-button>
+        </div>
+    </page-dialog>
+</template>
+<style lang="stylus">
+
+</style>
+<script>
+
+    export default {
+        data() {
+            return {
+                visible: this.value,
+                coordinate: {
+                    x: 0,
+                    y: 0,
+                },
+                mark: '##'
+            }
+        },
+        methods: {
+            open() {
+                if(this.printParams.Coordinate) {
+                    let coordinate = this.printParams.Coordinate.split(',');
+                    this.coordinate.x = coordinate[0];
+                    this.coordinate.y = coordinate[1];
+                }
+                if(this.printParams.Watermark !== '##') {
+                    this.mark = this.printParams.Watermark;
+                }
+            },
+            sure() {
+                this.mark = this.mark.trim();
+                this.coordinate.x = Number(this.coordinate.x);
+                this.coordinate.y = Number(this.coordinate.y);
+                switch (true) {
+                    case isNaN(this.coordinate.x):
+                    case isNaN(this.coordinate.y):
+                    case this.coordinate.x < 0:
+                    case this.coordinate.y < 0:
+                    case this.coordinate.x > 100:
+                    case this.coordinate.y > 100:
+                        this.$message({type: 'error', message: '水印坐标有误'});
+                        return;
+                    case this.mark === '':
+                        this.$message({type: 'error', message: `内容为空时请填##`});
+                }
+                let data = {
+                    Coordinate: `${this.coordinate.x},${this.coordinate.y}`,
+                    Watermark: this.mark,
+                };
+                this.$emit('test-print', data);
+                this.visible = false;
+            },
+            close() {
+                this.coordinate = {
+                    x: 0,
+                    y: 0,
+                };
+                this.mark = '##';
+            }
+        },
+        watch: {
+            value(val) {
+                this.visible = val;
+            },
+            visible(val) {
+                this.$emit('input', val);
+            }
+        },
+        props: {
+            value: {},
+            printParams: {},
+        },
+        components: {
+            pageDialog: require('@/components/page-dialog.vue').default,
+            integerInput: require('@/components/integer-input.vue').default,
+            labelItem: require('@/components/label-item.vue').default,
+        }
+    }
+</script>

@@ -1,0 +1,1091 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="59a006ba-baa2-4183-b11a-6a45de5c6422" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/api/shopee-thailand-order.js" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/view/order/shopee-thailand-order" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/view/order/shopee-thailand-order/list" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/view/order/shopee-thailand-order/list/data-table.vue" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/view/order/shopee-thailand-order/list/index.vue" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/view/order/shopee-thailand-order/list/searchList.vue" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/view/procurement/payment/mark-pay.vue" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/view/procurement/payment/operation-log.vue" />
+      <change beforePath="$PROJECT_DIR$/src/api/account-apply.js" afterPath="$PROJECT_DIR$/src/api/account-apply.js" />
+      <change beforePath="$PROJECT_DIR$/src/directives/resize.js" afterPath="$PROJECT_DIR$/src/directives/resize.js" />
+      <change beforePath="$PROJECT_DIR$/src/routes/maps.js" afterPath="$PROJECT_DIR$/src/routes/maps.js" />
+      <change beforePath="$PROJECT_DIR$/src/view/base/account-apply/add-edit.vue" afterPath="$PROJECT_DIR$/src/view/base/account-apply/add-edit.vue" />
+      <change beforePath="$PROJECT_DIR$/src/view/base/account-apply/index.vue" afterPath="$PROJECT_DIR$/src/view/base/account-apply/index.vue" />
+      <change beforePath="$PROJECT_DIR$/src/view/base/account-apply/search-module.vue" afterPath="$PROJECT_DIR$/src/view/base/account-apply/search-module.vue" />
+      <change beforePath="$PROJECT_DIR$/src/view/base/account/shopee/add-form.vue" afterPath="$PROJECT_DIR$/src/view/base/account/shopee/add-form.vue" />
+      <change beforePath="$PROJECT_DIR$/src/view/base/account/shopee/index.vue" afterPath="$PROJECT_DIR$/src/view/base/account/shopee/index.vue" />
+      <change beforePath="$PROJECT_DIR$/src/view/procurement/payment/data-table.vue" afterPath="$PROJECT_DIR$/src/view/procurement/payment/data-table.vue" />
+      <change beforePath="$PROJECT_DIR$/src/view/procurement/payment/index.vue" afterPath="$PROJECT_DIR$/src/view/procurement/payment/index.vue" />
+      <change beforePath="$PROJECT_DIR$/src/view/procurement/payment/look-edit.vue" afterPath="$PROJECT_DIR$/src/view/procurement/payment/look-edit.vue" />
+      <change beforePath="$PROJECT_DIR$/src/view/procurement/payment/look-reason.vue" afterPath="$PROJECT_DIR$/src/view/procurement/payment/look-reason.vue" />
+      <change beforePath="$PROJECT_DIR$/src/view/procurement/payment/payment-look.vue" afterPath="$PROJECT_DIR$/src/view/procurement/payment/payment-look.vue" />
+    </list>
+    <ignored path="$PROJECT_DIR$/.tmp/" />
+    <ignored path="$PROJECT_DIR$/temp/" />
+    <ignored path="$PROJECT_DIR$/tmp/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="1965451428">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="1" />
+          <entry key="project.open.time.15" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
+  <component name="FileEditorManager">
+    <splitter split-orientation="horizontal" split-proportion="0.1">
+      <split-first>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file leaf-file-name="maps.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/routes/maps.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="324">
+                  <caret line="1642" column="59" lean-forward="false" selection-start-line="1642" selection-start-column="59" selection-end-line="1642" selection-end-column="59" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="index.vue" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/view/order/yandex-order/list/index.vue">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="1341">
+                  <caret line="97" column="29" lean-forward="true" selection-start-line="97" selection-start-column="29" selection-end-line="97" selection-end-column="29" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="data-table.vue" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/view/order/yandex-order/list/data-table.vue">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="290">
+                  <caret line="164" column="26" lean-forward="true" selection-start-line="164" selection-start-column="26" selection-end-line="164" selection-end-column="26" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="index.vue" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/view/procurement/purchase/index.vue">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="270">
+                  <caret line="283" column="27" lean-forward="false" selection-start-line="283" selection-start-column="27" selection-end-line="283" selection-end-column="27" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="table-list.vue" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/view/procurement/purchase/table-list.vue">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="54">
+                  <caret line="729" column="9" lean-forward="false" selection-start-line="729" selection-start-column="9" selection-end-line="729" selection-end-column="9" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="index.vue" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/view/base/account/shopee/index.vue">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="-745">
+                  <caret line="222" column="60" lean-forward="false" selection-start-line="222" selection-start-column="60" selection-end-line="222" selection-end-column="60" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="add-form.vue" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/view/base/account/shopee/add-form.vue">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="543">
+                  <caret line="134" column="92" lean-forward="false" selection-start-line="134" selection-start-column="92" selection-end-line="134" selection-end-column="92" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="operation-log.vue" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/view/base/company-information/operation-log.vue">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="450">
+                  <caret line="18" column="16" lean-forward="false" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="29" />
+                  <folding>
+                    <element signature="n#style#0;n#el-table#0;n#template#0;n#!!top" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="data-table.vue" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/view/procurement/payment/data-table.vue">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="155">
+                  <caret line="404" column="41" lean-forward="false" selection-start-line="404" selection-start-column="31" selection-end-line="404" selection-end-column="41" />
+                  <folding>
+                    <element signature="n#style#0;n#div#0;n#el-table-column#8;n#el-table#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file leaf-file-name="operation-log.vue" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/view/procurement/payment/operation-log.vue">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="220">
+                  <caret line="10" column="71" lean-forward="false" selection-start-line="10" selection-start-column="71" selection-end-line="10" selection-end-column="71" />
+                  <folding>
+                    <element signature="n#style#0;n#el-table#0;n#page-dialog#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="global.styl" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/scss/global.styl">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="1592">
+                  <caret line="1658" column="0" lean-forward="true" selection-start-line="1658" selection-start-column="0" selection-end-line="1658" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="index.vue" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/view/procurement/payment/index.vue">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="270">
+                  <caret line="267" column="131" lean-forward="false" selection-start-line="267" selection-start-column="125" selection-end-line="267" selection-end-column="131" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="look-edit.vue" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/view/procurement/payment/look-edit.vue">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="198">
+                  <caret line="15" column="21" lean-forward="true" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
+                  <folding>
+                    <element signature="n#style#0;n#div#0;n#el-table-column#0;n#el-table#0;n#div#0;n#page-dialog#0;n#template#0;n#!!top" expanded="true" />
+                    <element signature="n#style#0;n#!!top" expanded="false" />
+                    <element signature="e#13660#14072#0" expanded="true" />
+                    <element signature="e#14686#16811#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="mark-pay.vue" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/view/procurement/payment/mark-pay.vue">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="234">
+                  <caret line="80" column="19" lean-forward="true" selection-start-line="80" selection-start-column="19" selection-end-line="80" selection-end-column="19" />
+                  <folding>
+                    <element signature="n#style#0;n#ui-limit-number#0;n#div#0;n#el-table-column#9;n#el-table#0;n#page-dialog#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="Vue Single File Component" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>showColor</find>
+      <find>show-color</find>
+      <find>filterStatus</find>
+      <find>red</find>
+      <find>bold-font</find>
+      <find>mr</find>
+      <find>balanceList</find>
+      <find>limit-input</find>
+      <find>audit</find>
+      <find>/shopee-account</find>
+      <find>color-input</find>
+      <find>close-on-cilck-modal</find>
+      <find>heads</find>
+      <find>timeFilter</find>
+      <find>create_time_date</find>
+      <find>申请时间</find>
+      <find>operator</find>
+      <find>return datef</find>
+      <find>filter</find>
+      <find>filters</find>
+      <find>yandex-orders</find>
+      <find>return datef</find>
+      <find>third_party_delivery</find>
+      <find>dateFilter</find>
+      <find>checkList</find>
+      <find>late</find>
+      <find>red-color</find>
+      <find>return</find>
+      <find>hasError</find>
+      <find>toFix(2)</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>import_settle</replace>
+      <replace>apply</replace>
+      <replace>valueCopy</replace>
+    </replaceStrings>
+    <dirStrings>
+      <dir>C:\vue-deskop\src\view\base</dir>
+    </dirStrings>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/view/procurement/virtual-pay/search.vue" />
+        <option value="$PROJECT_DIR$/src/api/order_wish.js" />
+        <option value="$PROJECT_DIR$/src/view/order/wish/list/look-list.vue" />
+        <option value="$PROJECT_DIR$/src/view/procurement/virtual-pay/export-order.vue" />
+        <option value="$PROJECT_DIR$/src/view/procurement/virtual-pay/index.vue" />
+        <option value="$PROJECT_DIR$/src/view/procurement/purchasing/search-list.vue" />
+        <option value="$PROJECT_DIR$/src/view/order/local/card-search.vue" />
+        <option value="$PROJECT_DIR$/src/api-components/param-account.vue" />
+        <option value="$PROJECT_DIR$/src/view/order/shopee-thailand-order/list/searchList.vue" />
+        <option value="$PROJECT_DIR$/src/view/order/wish/list/data-table.vue" />
+        <option value="$PROJECT_DIR$/src/view/order/wish/list/import-txt.vue" />
+        <option value="$PROJECT_DIR$/src/view/base/company-information/search.vue" />
+        <option value="$PROJECT_DIR$/src/view/base/company-information/upload-img.vue" />
+        <option value="$PROJECT_DIR$/src/api/kandeng.js" />
+        <option value="$PROJECT_DIR$/src/view/product/manager/add-tort-account.vue" />
+        <option value="$PROJECT_DIR$/src/lang/en/ymx-detail.js" />
+        <option value="$PROJECT_DIR$/src/view/kandeng/amazon/amazon-sales-complaint-management/table-data.vue" />
+        <option value="$PROJECT_DIR$/src/lang/en/common.js" />
+        <option value="$PROJECT_DIR$/src/lang/zh/common.js" />
+        <option value="$PROJECT_DIR$/src/lang/en/ymx-follow.js" />
+        <option value="$PROJECT_DIR$/src/view/kandeng/amazon/amazon-sales-complaint-management/deal-with-dialog.vue" />
+        <option value="$PROJECT_DIR$/src/view/kandeng/amazon/info/index.vue" />
+        <option value="$PROJECT_DIR$/src/components/order-input.vue" />
+        <option value="$PROJECT_DIR$/src/lang/zh/ymx-follow.js" />
+        <option value="$PROJECT_DIR$/src/api/account-apply.js" />
+        <option value="$PROJECT_DIR$/src/api/finance-purchase.js" />
+        <option value="$PROJECT_DIR$/src/view/procurement/suppliers/assert-sup/edit-lookover.vue" />
+        <option value="$PROJECT_DIR$/src/view/procurement/suppliers/assert-sup/image-upload.vue" />
+        <option value="$PROJECT_DIR$/src/view/procurement/virtual-purchase/index.vue" />
+        <option value="$PROJECT_DIR$/src/view/procurement/virtual-purchase/search.vue" />
+        <option value="$PROJECT_DIR$/src/view/kandeng/amazon/amazon-sales-complaint-management/search.vue" />
+        <option value="$PROJECT_DIR$/src/view/kandeng/wish/info/title-price.vue" />
+        <option value="$PROJECT_DIR$/src/view/kandeng/wish/info/extract-keyword.vue" />
+        <option value="$PROJECT_DIR$/src/view/base/account-apply/index.vue" />
+        <option value="$PROJECT_DIR$/src/view/base/account-apply/search-module.vue" />
+        <option value="$PROJECT_DIR$/src/view/kandeng/amazon/amazon-sales-complaint-management/index.vue" />
+        <option value="$PROJECT_DIR$/src/view/kandeng/wish/list/search-list.vue" />
+        <option value="$PROJECT_DIR$/src/view/base/account-apply/add-edit.vue" />
+        <option value="$PROJECT_DIR$/src/lib/http.js" />
+        <option value="$PROJECT_DIR$/src/view/kandeng/wish/info/input-tag.vue" />
+        <option value="$PROJECT_DIR$/src/directives/resize.js" />
+        <option value="$PROJECT_DIR$/src/view/procurement/purchase/look-list.vue" />
+        <option value="$PROJECT_DIR$/src/view/procurement/payment/look-reason.vue" />
+        <option value="$PROJECT_DIR$/src/view/base/account/shopee/index.vue" />
+        <option value="$PROJECT_DIR$/src/view/procurement/payment/operation-log.vue" />
+        <option value="$PROJECT_DIR$/src/view/procurement/payment/payment-look.vue" />
+        <option value="$PROJECT_DIR$/src/view/procurement/payment/look-edit.vue" />
+        <option value="$PROJECT_DIR$/src/view/procurement/payment/index.vue" />
+        <option value="$PROJECT_DIR$/src/view/base/account/shopee/add-form.vue" />
+        <option value="$PROJECT_DIR$/src/view/procurement/payment/data-table.vue" />
+        <option value="$PROJECT_DIR$/src/view/procurement/payment/mark-pay.vue" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER">
+    <package-json value="$PROJECT_DIR$/package.json" />
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NodeModulesDirectoryManager">
+    <handled-path value="$PROJECT_DIR$/node_modules" />
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="433" />
+    <option name="y" value="15" />
+    <option name="width" value="1080" />
+    <option name="height" value="1040" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="vue-deskop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vue-deskop" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vue-deskop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vue-deskop" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vue-deskop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vue-deskop" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="directives" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vue-deskop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vue-deskop" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="scss" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vue-deskop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vue-deskop" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vue-deskop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vue-deskop" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="base" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vue-deskop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vue-deskop" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="base" type="462c0819:PsiDirectoryNode" />
+              <item name="account" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vue-deskop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vue-deskop" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="base" type="462c0819:PsiDirectoryNode" />
+              <item name="account" type="462c0819:PsiDirectoryNode" />
+              <item name="shopee" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vue-deskop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vue-deskop" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="base" type="462c0819:PsiDirectoryNode" />
+              <item name="account-apply" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vue-deskop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vue-deskop" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="base" type="462c0819:PsiDirectoryNode" />
+              <item name="company-information" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vue-deskop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vue-deskop" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="kandeng" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vue-deskop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vue-deskop" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="kandeng" type="462c0819:PsiDirectoryNode" />
+              <item name="wish" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vue-deskop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vue-deskop" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="kandeng" type="462c0819:PsiDirectoryNode" />
+              <item name="wish" type="462c0819:PsiDirectoryNode" />
+              <item name="info" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vue-deskop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vue-deskop" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="kandeng" type="462c0819:PsiDirectoryNode" />
+              <item name="wish" type="462c0819:PsiDirectoryNode" />
+              <item name="list" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vue-deskop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vue-deskop" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="order" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vue-deskop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vue-deskop" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="order" type="462c0819:PsiDirectoryNode" />
+              <item name="wish" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vue-deskop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vue-deskop" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="order" type="462c0819:PsiDirectoryNode" />
+              <item name="wish" type="462c0819:PsiDirectoryNode" />
+              <item name="list" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vue-deskop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vue-deskop" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="order" type="462c0819:PsiDirectoryNode" />
+              <item name="yandex-order" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vue-deskop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vue-deskop" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="order" type="462c0819:PsiDirectoryNode" />
+              <item name="yandex-order" type="462c0819:PsiDirectoryNode" />
+              <item name="list" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vue-deskop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vue-deskop" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="procurement" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vue-deskop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vue-deskop" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="procurement" type="462c0819:PsiDirectoryNode" />
+              <item name="payment" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vue-deskop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vue-deskop" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="procurement" type="462c0819:PsiDirectoryNode" />
+              <item name="purchase" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vue-deskop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vue-deskop" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="procurement" type="462c0819:PsiDirectoryNode" />
+              <item name="virtual-pay" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scratches" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="settings.editor.selected.configurable" value="preferences.general" />
+    <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="HbShouldOpenHtmlAsHb" value="" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\vue-deskop\src\view\procurement\payment" />
+      <recent name="C:\vue-deskop\src\view\order" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SvnConfiguration" cleanupOnStartRun="true">
+    <configuration>C:\Users\Administrator\AppData\Roaming\Subversion</configuration>
+    <supportedVersion>125</supportedVersion>
+  </component>
+  <component name="SvnFileUrlMappingImpl">
+    <option name="myMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\vue-deskop" />
+          <option name="myCopyRoot" value="C:\vue-deskop" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+    <option name="myMoreRealMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\vue-deskop" />
+          <option name="myCopyRoot" value="C:\vue-deskop" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="59a006ba-baa2-4183-b11a-6a45de5c6422" name="Default" comment="" />
+      <created>1542785391016</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1542785391016</updated>
+      <workItem from="1542785394552" duration="67045000" />
+      <workItem from="1543211429669" duration="22343000" />
+      <workItem from="1543299211715" duration="18773000" />
+      <workItem from="1543368710924" duration="85371000" />
+      <workItem from="1543567460886" duration="38452000" />
+      <workItem from="1543885942667" duration="43698000" />
+      <workItem from="1543996092834" duration="4000" />
+      <workItem from="1543996372251" duration="18982000" />
+      <workItem from="1544077714543" duration="22244000" />
+      <workItem from="1544146822782" duration="22858000" />
+      <workItem from="1544232608122" duration="85662000" />
+      <workItem from="1544581025993" duration="34705000" />
+      <workItem from="1544663023351" duration="55976000" />
+      <workItem from="1545014049491" duration="80000" />
+      <workItem from="1545014167052" duration="23046000" />
+      <workItem from="1545046749895" duration="25804000" />
+      <workItem from="1545127183732" duration="58000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="625653000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18177028" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32899022" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32899022" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32899022" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23018458" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13432837" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/view/kandeng/amazon/amazon-sales-complaint-management/search.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="27">
+          <caret line="12" column="61" lean-forward="false" selection-start-line="12" selection-start-column="61" selection-end-line="12" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.dom.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="15086" column="17" lean-forward="false" selection-start-line="15086" selection-start-column="17" selection-end-line="15086" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/kandeng/wish/info/extract-keyword.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="95" column="49" lean-forward="false" selection-start-line="95" selection-start-column="49" selection-end-line="95" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/kandeng/wish/info/title-price.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1722">
+          <caret line="225" column="32" lean-forward="false" selection-start-line="225" selection-start-column="32" selection-end-line="225" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/kandeng/amazon/amazon-sales-complaint-management/index.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="571">
+          <caret line="138" column="71" lean-forward="false" selection-start-line="138" selection-start-column="71" selection-end-line="138" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/base/account-apply/table-module.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2342">
+          <caret line="151" column="32" lean-forward="false" selection-start-line="151" selection-start-column="28" selection-end-line="151" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lib/http.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="138" column="17" lean-forward="false" selection-start-line="138" selection-start-column="17" selection-end-line="138" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/input-tag.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="85" column="54" lean-forward="false" selection-start-line="85" selection-start-column="54" selection-end-line="85" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/directives/resize.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="567">
+          <caret line="42" column="21" lean-forward="true" selection-start-line="40" selection-start-column="7" selection-end-line="42" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api/account-apply.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="691">
+          <caret line="87" column="0" lean-forward="false" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/base/account-apply/search-module.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3473">
+          <caret line="292" column="0" lean-forward="false" selection-start-line="292" selection-start-column="0" selection-end-line="292" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/kandeng/wish/list/index.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-22">
+          <caret line="20" column="11" lean-forward="true" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/kandeng/wish/info/index.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2987">
+          <caret line="191" column="23" lean-forward="true" selection-start-line="191" selection-start-column="23" selection-end-line="191" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/kandeng/wish/list/search-list.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="598">
+          <caret line="95" column="28" lean-forward="false" selection-start-line="95" selection-start-column="28" selection-end-line="95" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/base/account/shopee/edit-batch.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7">
+          <caret line="2" column="4" lean-forward="false" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/base/account/shopee/card-search.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="3" column="4" lean-forward="false" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/base/account/shopee/add.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="47">
+          <caret line="4" column="2" lean-forward="true" selection-start-line="4" selection-start-column="2" selection-end-line="4" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/procurement/purchase/look-list.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="1118" column="26" lean-forward="false" selection-start-line="1118" selection-start-column="12" selection-end-line="1118" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/base/company-information/account-info.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-648">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/base/company-information/add-look-edit.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="344">
+          <caret line="33" column="11" lean-forward="false" selection-start-line="33" selection-start-column="11" selection-end-line="35" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/report/export-dialog.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1222">
+          <caret line="47" column="17" lean-forward="false" selection-start-line="47" selection-start-column="12" selection-end-line="47" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/procurement/payment/pay-log.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="15" column="26" lean-forward="false" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/procurement/payment/look-reason.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="10" column="27" lean-forward="false" selection-start-line="10" selection-start-column="27" selection-end-line="11" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/base/company-information/index.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/procurement/payment/payment-look.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="147" column="10" lean-forward="true" selection-start-line="147" selection-start-column="10" selection-end-line="149" selection-end-column="35" />
+          <folding>
+            <element signature="n#style#0;n#ui-limit-number#0;n#div#0;n#div#0;n#el-table-column#7;n#el-table#0;n#page-dialog#0;n#template#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/order/wish/list/import-txt.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/order/wish/list/index.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/base/account-apply/index.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="594">
+          <caret line="88" column="23" lean-forward="false" selection-start-line="88" selection-start-column="23" selection-end-line="88" selection-end-column="23" />
+          <folding>
+            <element signature="e#1990#2068#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/page-dialog.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-9301">
+          <caret line="15" column="65" lean-forward="true" selection-start-line="15" selection-start-column="65" selection-end-line="15" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/ui-tip.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/scss/global.styl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1592">
+          <caret line="1658" column="0" lean-forward="true" selection-start-line="1658" selection-start-column="0" selection-end-line="1658" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/procurement/payment/look-edit.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="15" column="21" lean-forward="true" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#el-table-column#0;n#el-table#0;n#div#0;n#page-dialog#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#!!top" expanded="false" />
+            <element signature="e#13660#14072#0" expanded="true" />
+            <element signature="e#14686#16811#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/base/account/shopee/add-form.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="543">
+          <caret line="134" column="92" lean-forward="false" selection-start-line="134" selection-start-column="92" selection-end-line="134" selection-end-column="92" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/routes/maps.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="1642" column="59" lean-forward="false" selection-start-line="1642" selection-start-column="59" selection-end-line="1642" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/order/yandex-order/list/data-table.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="164" column="26" lean-forward="true" selection-start-line="164" selection-start-column="26" selection-end-line="164" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/order/yandex-order/list/index.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1341">
+          <caret line="97" column="29" lean-forward="true" selection-start-line="97" selection-start-column="29" selection-end-line="97" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/base/company-information/operation-log.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="18" column="16" lean-forward="false" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="29" />
+          <folding>
+            <element signature="n#style#0;n#el-table#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/procurement/virtual-pay/index.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4212">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/procurement/virtual-pay/table-list.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="323" column="15" lean-forward="false" selection-start-line="323" selection-start-column="8" selection-end-line="323" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/base/account-apply/add-edit.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="702">
+          <caret line="159" column="126" lean-forward="false" selection-start-line="159" selection-start-column="126" selection-end-line="159" selection-end-column="126" />
+          <folding>
+            <element signature="n#style#0;n#img#1;n#div#2;n#el-form-item#7;n#el-form#0;n#el-tab-pane#0;n#el-tabs#0;n#div#0;n#div#0;n#div#0;n#page-dialog#0;n#div#0;n#template#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/procurement/purchase/index.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="283" column="27" lean-forward="false" selection-start-line="283" selection-start-column="27" selection-end-line="283" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/ui-limit-number.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-88">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/kandeng/wish/info/input-tag.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="155" column="59" lean-forward="false" selection-start-line="155" selection-start-column="53" selection-end-line="155" selection-end-column="59" />
+          <folding>
+            <element signature="n#style#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/procurement/payment/operation-log.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="10" column="71" lean-forward="false" selection-start-line="10" selection-start-column="71" selection-end-line="10" selection-end-column="71" />
+          <folding>
+            <element signature="n#style#0;n#el-table#0;n#page-dialog#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/procurement/payment/index.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="267" column="131" lean-forward="false" selection-start-line="267" selection-start-column="125" selection-end-line="267" selection-end-column="131" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/procurement/purchase/table-list.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="729" column="9" lean-forward="false" selection-start-line="729" selection-start-column="9" selection-end-line="729" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/base/account/shopee/data-table.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="204" column="15" lean-forward="false" selection-start-line="204" selection-start-column="8" selection-end-line="204" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/base/account/shopee/index.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-745">
+          <caret line="222" column="60" lean-forward="false" selection-start-line="222" selection-start-column="60" selection-end-line="222" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/datef/datef.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="8" column="35" lean-forward="true" selection-start-line="8" selection-start-column="35" selection-end-line="8" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/procurement/payment/data-table.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="404" column="41" lean-forward="false" selection-start-line="404" selection-start-column="31" selection-end-line="404" selection-end-column="41" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#el-table-column#8;n#el-table#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/procurement/payment/mark-pay.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="80" column="19" lean-forward="true" selection-start-line="80" selection-start-column="19" selection-end-line="80" selection-end-column="19" />
+          <folding>
+            <element signature="n#style#0;n#ui-limit-number#0;n#div#0;n#el-table-column#9;n#el-table#0;n#page-dialog#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

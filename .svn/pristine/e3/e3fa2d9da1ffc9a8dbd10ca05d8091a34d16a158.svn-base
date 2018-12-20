@@ -1,0 +1,145 @@
+<template>
+    <page-dialog :title="title"
+                 v-model="show"
+                 size="small"
+                 :close-on-click-modal="false"
+                 @change="open_dialog">
+        <el-tabs v-model="activeName"
+                 type="card"
+                 @tab-click="tab_click_item">
+            <el-tab-pane v-for="item in showCurrentTabs"
+                         :label="item.label"
+                         :name="item.name"
+                         :key="item.id">
+                <component :is="item.comp"
+                           ref="comp"
+                           :form="form"
+                           :channels="channels"
+                           :businessPicture="businessPicture"
+                           :IDFront="IDFront"
+                           :IDBack="IDBack"
+                           :flag="flag"
+                           @company="keep_company_info"
+                           @account="keep_account_info"
+                           @vat="keep_update_vat">
+                </component>
+            </el-tab-pane>
+        </el-tabs>
+        <div slot="footer" class="dialog-footer">
+            <el-button size="mini"
+                       @click.native="show=false">关闭
+            </el-button>
+        </div>
+    </page-dialog>
+</template>
+
+<style lang="stylus" scoped>
+
+</style>
+
+<script>
+    import companyInfo from './company-info';
+    import accountInfo from './account-info';
+    import taxRate from './tax-rate';
+    import operationLog from './operation-log';
+    import {get_channel,init_data,add_company_info,keep_account,
+        look_edit,look_at_operation_log,update_company_info,keep_update_vats} from './action';
+    export default {
+        name: "add-look-edit",
+        data() {
+            return {
+                show:this.value,
+                activeName:'companyInfo',
+                tabs:[
+                    {id:1,label:"公司信息",name:"companyInfo",comp:companyInfo,isView:false},
+                    {id:2,label:"账号信息",name:"accountInfo",comp:accountInfo,isView:false},
+                    {id:3,label:"VAT",name:"taxRate",comp:taxRate,isView:false},
+                    {id:4,label:"操作日志",name:"operationLog",comp:operationLog,isView:false},
+                ],
+                form:{},
+                channels:[],
+                businessPicture:[],
+                IDFront:[],
+                IDBack:[],
+            }
+        },
+        computed: {
+            showCurrentTabs(){
+                return this.tabs.filter(tab=>tab.isView);
+            }
+        },
+        watch: {
+            show(val){
+                this.$emit('input',val)
+            },
+            value(val){
+                this.show=val;
+            }
+        },
+        methods: {
+            open_dialog(isOpen){
+                if(isOpen){
+                    this.activeName='companyInfo';
+                    let arr=JSON.parse(localStorage.getItem('companyChannel'));
+                    if(!arr||!arr.length){
+                        get_channel(this);
+                    }else{
+                        this.channels=arr;
+                    }
+                    init_data(this);
+                    if(!this.flag){//add
+                        this.tabs[0].isView=true;
+                    }else{// look over and edit
+                        this.tabs.forEach(row=>{
+                            this.$set(row,'isView',true);
+                        });
+                        look_edit(this);
+                        look_at_operation_log(this);
+                    }
+                }
+
+            },
+            tab_click_item(tab,event){
+
+            },
+            keep_company_info(){
+                console.log(this.businessPicture,'this.businessPicture',this.form.id);
+                this.deal_with_picture(this.businessPicture,'charter_url');
+                this.deal_with_picture(this.IDFront,'corporation_id_front');
+                this.deal_with_picture(this.IDBack,'corporation_id_contrary');
+                if(this.form.id){
+                    update_company_info(this);
+                }else{
+                     add_company_info(this);
+                }
+            },
+            deal_with_picture(arr,string){
+                if(arr.length){
+                    let data=arr.map(row=>row.image).join(',');
+                    this.$set(this.form,string,data);
+                }
+            },
+            keep_account_info(){
+                keep_account(this);
+            },
+            keep_update_vat(){
+                keep_update_vats(this);
+            },
+            close(){
+
+            },
+        },
+        props: {
+            value:{},
+            title:{},
+            flag:{//0 add  1 look over  2 edit
+                type:Number
+            },
+            id:{}
+        },
+        components: {
+            companyInfo,accountInfo,taxRate,operationLog
+        },
+    }
+</script>
+

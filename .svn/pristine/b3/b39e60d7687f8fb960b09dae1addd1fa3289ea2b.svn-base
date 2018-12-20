@@ -1,0 +1,44 @@
+<template>
+    <search-card @search="search" :clears="clears" :params="form">
+        <label-item label="">
+            <el-select class="inline s-width-default" v-model="form.snType">
+                <el-option v-for=" item in typeList" :label="item.label" :value="item.value" :key="item.value">
+
+                </el-option>
+            </el-select>
+        </label-item>
+        <label-item label="" class="mr-lg">
+            <el-input v-model="form.snText" style="width: 220px;" placeholder="支持模糊搜索"></el-input>
+        </label-item>
+    </search-card>
+</template>
+
+<script>
+    export default {
+        data() {
+            return {
+                typeList: [
+                    {label:'服务器名',value:'name'},
+                    {label:'外网IP',value:'ip'}
+                ],
+            }
+        },
+        methods: {
+            search() {
+                this.$emit('search')
+            }
+        },
+       props:{
+           clears:{},
+           form:{}
+       },
+        components:{
+           searchCard:require('@/components/search-card').default,
+            labelItem:require('@/components/label-item').default
+        }
+    }
+</script>
+
+<style scoped>
+
+</style>

@@ -1,0 +1,154 @@
+<template>
+    <page class="p-index over-flow-auto">
+        <card-search :form="form" :clears="clears" @search="search"></card-search>
+        <table-list :loading="loading" :first-time="firstTime" :tableData="tables" @edit="edit"></table-list>
+        <edit-title v-model="show" :title="title" :title-list="titleList" :einfo="info" @search="search"
+        :spuId="spuId"></edit-title>
+        <el-pagination
+                class="page-fixed"
+                @size-change="handle_size_change"
+                @current-change="handle_current_change"
+                :current-page="tables.page"
+                :page-sizes="[20, 50, 100, 200,500]"
+                :page-size="tables.pageSize"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="tables.total">
+        </el-pagination>
+    </page>
+</template>
+
+<script>
+    import {api_ebay_titles,api_edit_ebay_titles} from  '../../../../api/ebay-title-key'
+    export default {
+        page:{
+            devinfo:{
+                frontEnd:'陆城锫',
+                backEnd:'王留伟',
+                creatTime:'2018-11-5',
+                updateTime:'2018-11-10'
+            }
+        },
+        data() {
+            return {
+                spuId:'',
+                title:'',
+                titleList:[],
+                show:false,
+                loading: false,
+                firstTime: true,
+                info:{},
+                form: {
+                    searchType:'spu',
+                    searchContent:'',
+                    localCategoryId:'',
+                    startDate:'',
+                    endDate:''
+                },
+                tables:{
+                    page:1,
+                    pageSize:50,
+                    lists:[
+
+                    ],
+                    total:0
+                },
+                clears:{
+                    searchType:'spu',
+                    searchContent:'',
+                    localCategoryId:'',
+                }
+            }
+        },
+        mounted(){
+            this.init()
+        },
+        methods: {
+            edit(val){
+                this.spuId = `SPU：${val.spu}编辑标题`;
+                this.$http(api_edit_ebay_titles,val.goods_id).then(res=>{
+                   this.$nextTick(()=>{
+                       this.info= res.data;
+                       this.$set(this.info,'goods_id',val.goods_id);
+                       this.show = true;
+                   })
+                })
+            },
+            search() {
+                this.init()
+            },
+            init(){
+                this.loading = true;
+                let data = this.init_params();
+                this.$http(api_ebay_titles,data).then(res=>{
+                    this.tables.lists = res.data.list;
+                    this.tables.lists.forEach(row=>{
+                        let arr = row.name.split('|');
+                        this.$set(row,'cnTitle',arr[0]);
+                        this.$set(row,'enTitle',arr[1])
+                    });
+                    this.tables.total = res.data.count;
+                    this.loading = false;
+                    this.firstTime = false;
+                }).catch(err=>{
+                    this.loading = false;
+                    this.firstTime = false;
+                    console.log(err);
+                })
+            },
+            init_params(){
+                let data = {
+                    searchType:this.form.searchType,
+                    searchContent:this.form.searchContent,
+                    localCategoryId:this.form.localCategoryId,
+                    page:this.tables.page,
+                    pageSize:this.tables.pageSize,
+                };
+                this.form.startDate&&(data.startDate=this.form.startDate);
+                this.form.endDate&&(data.endDate = this.form.endDate);
+                if (data.startDate) {
+                    data.startDate = datef('YYYY-MM-dd', new Date(data.startDate).getTime()/1000);
+                } else {
+                    data.startDate = ''
+                }
+                if (data.endDate) {
+                    data.endDate = datef('YYYY-MM-dd', new Date(data.endDate).getTime()/1000);
+                } else {
+                    data.endDate = ''
+                }
+                let curString = '';
+                if (data.searchType === 'spu' || data.searchType === 'sku') {
+                    curString = data.searchContent.replace(new RegExp('\n', 'gm'), '\n');
+                    if(!!data.searchContent.length){
+                        let cur = curString.split('\n').filter(row => !!row);
+                        data.searchContent = cur.map(row=>{
+                            return row.trim()
+                        })
+                    }else {
+                        data.searchContent = ''
+                    }
+                } else {
+                    curString = data.searchContent.replace(new RegExp(' ', 'gm'), '\n');
+                    data.searchContent = data.searchContent.trim();
+                }
+                return data
+            },
+            handle_size_change(val) {
+                this.tables.pageSize = val;
+                this.init()
+            },
+            handle_current_change(val) {
+                this.tables.page = val;
+                this.init()
+            },
+        },
+        components:{
+            cardSearch:require('./card-search').default,
+            tableList:require('./table-list').default,
+            editTitle:require('./edit-model').default
+        }
+    }
+</script>
+
+<style scoped>
+
+</style>

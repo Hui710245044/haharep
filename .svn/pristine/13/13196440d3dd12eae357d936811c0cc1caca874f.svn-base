@@ -1,0 +1,87 @@
+<template>
+    <el-table class="scroll-bar"
+              :data="table.list"
+              v-resize="{height:41}"
+              v-loading="loading"
+              element-loading-text="玩命加载中..."
+              @sort-change="sort_change"
+              :default-sort = "{prop: 'date', order: 'descending'}"
+              highlight-current-row
+    >
+        <div slot="empty" class="no-data-reminder">
+            <i></i>
+            {{ emptyText }}
+        </div>
+        <el-table-column label="SPU" prop="spu"></el-table-column>
+        <el-table-column label="上架时间" prop="publish_time" sortable>
+
+        </el-table-column>
+        <el-table-column label="所属平台">
+            <template slot-scope="scope">
+                {{scope.row.channel_id|channel}}
+            </template>
+        </el-table-column>
+        <el-table-column label="分类" prop="category_chain"></el-table-column>
+        <el-table-column label="开发员" prop="developer_name"></el-table-column>
+        <el-table-column label="产品状态" prop="sales_status_txt"></el-table-column>
+        <el-table-column label="刊登总数" prop="total_cnt" sortable></el-table-column>
+        <el-table-column label="eBay平台" prop="ebay_cnt"></el-table-column>
+        <el-table-column label="亚马逊平台" prop="amazon_cnt"></el-table-column>
+        <el-table-column label="Wish平台" prop="wish_cnt"></el-table-column>
+        <el-table-column label="速卖通平台" prop="aliexpress_cnt"></el-table-column>
+        <el-table-column label="Joom平台" prop="joom_cnt"></el-table-column>
+        <el-table-column label="MyMall平台" prop="mymall_cnt"></el-table-column>
+        <el-table-column label="Shopee平台" prop="shopee_cnt"></el-table-column>
+    </el-table>
+</template>
+
+<script>
+    export default {
+        computed: {
+            emptyText() {
+                return this.firstTime ? '请查询数据' : '暂无数据'
+            }
+        },
+        methods: {
+            sort_change(val) {
+                this.$emit('sort-change',val)
+            }
+        },
+        filters:{
+            channel(val){
+              switch (val){
+                  case 1:
+                      return 'Ebay';
+                  break;
+                  case 2:
+                      return '亚马逊';
+                  break;
+                  case 3:
+                      return 'wish';
+                  break;
+                  case 4:
+                      return '速卖通';
+                  break;
+                  case 7:
+                      return 'Joom';
+                  break;
+                  case 8:
+                      return 'mymall';
+                  break;
+                  case 9:
+                      return 'shopee';
+                  break
+              }
+            }
+        },
+        props:{
+            loading:{},
+            firstTime:{},
+            table:{}
+        }
+    }
+</script>
+
+<style scoped>
+
+</style>

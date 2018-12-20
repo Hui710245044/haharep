@@ -1,0 +1,210 @@
+<template>
+    <page class="p-dialog">
+        <page-dialog
+                title="批量跟卖"
+                v-model="dialogShow"
+                size="large"
+                :close-on-click-modal="false"
+                @open="open"
+                @close="close">
+            <label-item label="指定跟卖账号简称：" class="ml-sm" style="color: blue">
+                <param-account v-model="account_id" class="s-width-default"
+                               :fixResult="fixAccount"
+                               type="amazonAccount"
+                               placeholder="请选择/输入..."
+                               url="get|publish/amazon/account"></param-account>
+            </label-item>
+            <label-item label="设置自动调价：" style="margin-left: 30px;color: blue">
+                <el-radio-group v-model="modify_price_type" @change="set_type">
+                    <el-radio class="ml-xs" :label="1">百分比调价</el-radio>
+                    <el-input-number class="s-width-mini" :controls="false" :min="0" :max="100" v-model="percent" :disabled="modify_price_type !== 1"></el-input-number>
+                    <span class="ml-xs">%</span>
+                    <el-radio class="ml-sm" :label="2">金额调价</el-radio>
+                    <el-input-number class="s-width-mini ml-xs" :controls="false" :min="0" v-model="money" :disabled="modify_price_type !== 2"></el-input-number>
+                    <el-radio class="ml-sm" :label="0">无</el-radio>
+                </el-radio-group>
+            </label-item>
+            <label-item label="指定定时规则：" style="margin-left: 30px;color: blue">
+                <param-account v-model="rule_id" class="s-width-default"
+                               type="saleRule"
+                               :fixResult="fixRule"
+                               placeholder="请选择/输入..."
+                               :params="{rule_name: '',status: 0}"
+                               url="get|publish/amazon/up-lower-rule-list"></param-account>
+            </label-item>
+            <div class="ml-sm" style="color: red">
+                注意：
+                <br>
+                1、可从Excel复制，一行一个，格式：SKU ASIN  销售价 可售量 最低底价（如果勾选了自动调价，请切记设置最低底价，否则将可能造成亏损）；
+                <br>
+                2、设置了自动调价后，系统会监控所跟卖产品的对低价，并在此基础上自动降价抢购物车！
+            </div>
+            <div class="ml-sm mt-sm">
+                <label style="color: blue">跟卖数据：</label>
+                <el-input type="textarea"
+                          :rows="8"
+                          v-model="formData">
+                </el-input>
+                <div class="mt-sm">
+                    <label style="color: blue">跟卖结果：</label>
+                    <div style="border: 1px solid gray;width: 100%;height: 156px;overflow: scroll">
+                        <div v-for="(list, index) in result" :key="index">
+                            <span>{{list.sku}}  {{list.asin}}</span>
+                            <span style="color: red">{{list.status === '跟卖信息重复'?list.status:''}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div slot="footer" class="dialog-footer">
+                <el-button size="mini" type="primary" :disabled="formData === ''" @click.native="submit">提交跟卖</el-button>
+                <el-button size="mini" @click.native="dialogShow = false">取消</el-button>
+            </div>
+        </page-dialog>
+    </page>
+</template>
+
+<style scoped lang="stylus">
+
+</style>
+
+<script>
+    import {api_post_heel_sale} from '../../../../api/heel-sale-list';
+    export default {
+        data(){
+            return {
+                dialogShow: this.value,
+                account_id: '',
+                percent: '',
+                money: '',
+                modify_price_type: 1,
+                formData: '',
+                result: [],
+                rule_id: '',
+            }
+        },
+        created(){
+
+        },
+        filters:{
+
+        },
+        methods: {
+            open(){
+                this.formData = '';
+                this.result = [];
+                this.account_id = '';
+                this.rule_id = '';
+                this.percent = '';
+                this.money = '';
+                this.modify_price_type = 1;
+            },
+            close(){
+                this.$emit('close')
+            },
+            set_type(val){
+                switch (val) {
+                    case 0:
+                        this.money = '';
+                        this.percent = '';
+                        break;
+                    case 1:
+                        this.money = '';
+                        break;
+                    case 2:
+                        this.percent = '';
+                        break;
+                }
+            },
+            submit(){
+                if(this.formData.trim() === ''){
+                    this.$message({type: 'warning', message: '请填写跟卖数据'})
+                    return
+                }
+                let modify_price;
+                if(this.modify_price_type === 1){
+                    if(!this.percent){
+                        this.$message({type: 'warning', message: '百分比调价数值不能为0'});
+                        return
+                    }else{
+                        modify_price = '';
+                    }
+                }else if(this.modify_price_type === 2){
+                    if(!this.money){
+                        this.$message({type: 'warning', message: '金额调价数值不能为0'});
+                        return
+                    }else{
+                        modify_price = '';
+                    }
+                }else{
+                    modify_price = this.money;
+                }
+                let arr1 = this.formData.split('\n');
+                let arr2 = arr1.map(row => row.replace(/\s+/g, ' ').split(' '));
+                let params = arr2.map(row => {
+                    return {
+                        sku: row[0],
+                        account_id: this.account_id,
+                        modify_price_type: this.modify_price_type,
+                        modify_price: modify_price,
+                        asin: row[1],
+                        price: row[2],
+                        quantity: row[3],
+                        lowest_price: row[4]
+                    }
+                });
+                let params2 = [];
+                params.forEach(row => {
+                    if(row.sku !== ''){
+                        params2.push(row)
+                    }
+                });
+                this.$http(api_post_heel_sale,{data:JSON.stringify(params2),rule_id:this.rule_id}).then(res => {
+                    this.result = res.data;
+                }).catch(code => {
+                    this.$message({type: 'error', message: code.message || code})
+                })
+            },
+            //获取账号列表
+            fixAccount(res){
+                let list = res.map(row=>{
+                    return {
+                        label:row.code,
+                        value:row.account_id,
+                    }
+                });
+                return list
+            },
+            //获取规则列表
+            fixRule(res){
+                let list = res.data.map(row => {
+                    return {
+                        label: row.rule_name,
+                        value: row.id
+                    }
+                });
+                return list
+            }
+        },
+        watch: {
+            value(val){
+                this.dialogShow = val;
+            },
+            dialogShow(val){
+                this.$emit('input',val);
+            }
+        },
+        props:{
+            value:{
+                type:Boolean,
+                default(){
+                    return false;
+                }
+            },
+        },
+        components: {
+            pageDialog: require('@/components/page-dialog').default,
+            paramAccount:require("@/api-components/param-account.vue").default,
+            labelItem:require('@/components/label-item.vue').default,
+        }
+    }
+</script>

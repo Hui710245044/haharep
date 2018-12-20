@@ -1,0 +1,1193 @@
+<template>
+    <el-row>
+        <page-dialog :title="title" v-model="dialog" @open="open"  width="650px"  left="30%" size="full" :close-on-click-modal="false" class="suppliers-edit">
+            <el-form :model="lookEditForm" ref="lookEditForm" :rules="rules" label-width="120px">
+                <el-row>
+                    <label class="box-label">基本资料</label>
+                    <el-col :span="22">
+                        <el-form-item label="名称：" prop="company_name">
+                            <ui-input v-model="lookEditForm.company_name" :edit="!isLook"></ui-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="22">
+                        <el-form-item label="代码：">
+                            <ui-input v-model="lookEditForm.code" :edit="!isLook"></ui-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="22">
+                        <el-form-item label="等级：">
+                            <label-select
+                                :edit="!isLook"
+                                v-model="lookEditForm.level"
+                                :lists="levelList"
+                                @change="cc"
+                                clearable
+                                placeholder="请选择供应商等级..."
+                            ></label-select>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="22">
+                        <el-form-item label="供应商类型：" prop="type">
+                            <el-select class="inline"
+                                       v-model="lookEditForm.type"
+                                       ref="type"
+                                       v-mouse-side.mousewheel="()=>{$refs.type.visible = false}"
+                                       v-if="!isLook">
+                                <el-option :key="item.value" v-for="item in typeList" :label="item.label" :value="item.value"></el-option>
+                            </el-select>
+                            <span v-else>{{comTitle}}</span>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="22">
+                        <el-form-item label="发票类型：" prop="invoice">
+                            <label-select
+                                :edit="!isLook"
+                                v-model="lookEditForm.invoice"
+                                placeholder="请选择发票类型..."
+                                :lists="invoiceList"
+                            ></label-select>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="22">
+                        <el-form-item label="法人代表：">
+                            <ui-input :edit="!isLook" v-model="lookEditForm.legal"></ui-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="22">
+                        <el-form-item label="系统名称：" prop="system_name">
+                            <ui-input :edit="!isLook" v-model="lookEditForm.system_name"></ui-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="22">
+                        <el-form-item label="营业执照名称：" prop="business_license">
+                            <ui-input :edit="!isLook" v-model="lookEditForm.business_license"></ui-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="22">
+                        <el-form-item prop="business_file"
+                                      :required="lookEditForm.transaction_type===2"
+                                      :show-message="lookEditForm.transaction_type===2&&!lookEditForm.business_file&&file.length===0"
+                                      label="营业执照附件：">
+                            <div class="allli">
+                                <img v-if="lookEditForm.business_file"
+                                     :src="img_path(lookEditForm.business_file)"
+                                     height="100%"
+                                     @click="search_img(lookEditForm.business_file)"
+                                     width="100%">
+                                <img v-if="file.length>0"
+                                     :src="file[0].image"
+                                     height="100%"
+                                     @click="search_img(file[0].image)"
+                                     width="100%">
+                                <image-upload @update-file="update_file('business_file')"
+                                              :thumbnail-mode="true"
+                                              class="inline"
+                                              :multiple="false"
+                                              ref="images-file"
+                                              :init="file"></image-upload>
+                                <div class="tool">
+                                    <span v-if="!isLook&&(lookEditForm.business_file||file.length>0)"
+                                          class="btn-img el-icon-delete"
+                                          @click="remove_img(file,'business_file')"></span>
+                                    <span v-if="!isLook"
+                                          class="btn-img el-icon-edit"
+                                          @click="edit_img('images-file')"></span>
+                                    <img v-if="lookEditForm.business_file"
+                                         class="btn-img btn-i-img"
+                                         @click="download_img(lookEditForm.business_file)"
+                                         width="20px"
+                                         height="20px"
+                                         src="../../../../assets/download.svg">
+                                </div>
+                            </div>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="22">
+                        <el-form-item label="供应商链接：">
+                            <ui-input v-model="lookEditForm.link" :edit="!isLook"></ui-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="22">
+                        <el-form-item label="采购员：">
+                            <purchaser class="inline s-width-default"
+                                       v-model="lookEditForm.purchaser_id" v-if="!isLook"></purchaser>
+                            <span v-else>{{lookEditForm.purchaser}}</span>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="22">
+                        <el-form-item label="介绍：">
+                            <ui-input type="textarea" v-model="lookEditForm.introduce" :edit="!isLook"></ui-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <label class="box-label">财务结算</label>
+                    <el-col :span="22">
+                        <el-form-item label="交易类型：" prop="transaction_type">
+                            <el-select class="inline"
+                                       v-if="!isLook"
+                                       ref="transaction"
+                                       clearable
+                                       v-mouse-side.mousewheel="()=>{$refs.transaction.visible = false}"
+                                       v-model="lookEditForm.transaction_type"
+                                       placeholder="请选择结算方式...">
+                                <el-option :key="item.label" v-for="item in transactionTypeList" :label="item.label" :value="item.value"></el-option>
+                            </el-select>
+                            <span v-else>{{comTransaction}}</span>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <template v-if="lookEditForm.transaction_type===2">
+                    <el-row>
+                        <el-col :span="14">
+                            <el-form-item label="对公账户：" prop="public_accounts">
+                                <el-input v-model="lookEditForm.public_accounts" v-if="!isLook" style="width: 178px;" placeholder="请输入对公账户..."></el-input>
+                                <span v-else>{{lookEditForm.public_accounts}}</span>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                            <el-form-item label="开户行：" label-width="122px" prop="public_accounts_bank">
+                                <el-input v-model="lookEditForm.public_accounts_bank" v-if="!isLook" placeholder="输入开户行..."></el-input>
+                                <span v-else>{{lookEditForm.public_accounts_bank}}</span>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                    <el-row>
+                        <el-col style="width: 48.16667%">
+                            <el-form-item label="对私账户：" prop="private_accounts">
+                                <el-input v-model="lookEditForm.private_accounts" v-if="!isLook" style="width: 178px;" placeholder="请输入对私账户..."></el-input>
+                                <span v-else>{{lookEditForm.private_accounts}}</span>
+                            </el-form-item>
+                        </el-col>
+                        <el-col style="width: 19.16667%">
+                            <el-form-item label="户名：" label-width="50px" prop="private_accounts_name">
+                                <el-input v-model="lookEditForm.private_accounts_name" v-if="!isLook" placeholder="输入户名..."></el-input>
+                                <span v-else>{{lookEditForm.private_accounts_name}}</span>
+                            </el-form-item>
+                        </el-col>
+                        <el-col style="width: 32.67249%;">
+                            <el-form-item label="开户行：" label-width="64px" prop="private_accounts_bank">
+                                <el-input v-model="lookEditForm.private_accounts_bank" v-if="!isLook" style="width: 86.33px;" placeholder="输入开户行..."></el-input>
+                                <span v-else>{{lookEditForm.private_accounts_name}}</span>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="22">
+                            <el-form-item prop="payment_information"
+                                          required
+                                          :show-message="lookEditForm.payment_information.length===0&&information.length===0"
+                                          label="付款资料(盖章)：">
+                                <div class="allli">
+                                    <img v-if="lookEditForm.payment_information"
+                                         :src="img_path(lookEditForm.payment_information)"
+                                         height="100%"
+                                         @click="search_img(lookEditForm.payment_information)"
+                                         width="100%">
+                                    <img v-if="information.length>0" :src="information[0].image"
+                                         height="100%"
+                                         @click="search_img(information[0].image)"
+                                         width="100%" alt="">
+                                    <image-upload @update-file="update_file('payment_information')"
+                                                  :thumbnail-mode="true" class="inline"
+                                                  :multiple="false"
+                                                  ref="images-information"
+                                                  :init="information"></image-upload>
+                                    <div class="tool">
+                                        <span v-if="!isLook&&(lookEditForm.payment_information||information.length>0)"
+                                              class="btn-img el-icon-delete"
+                                              @click="remove_img(information,'payment_information')"></span>
+                                        <span v-if="!isLook"
+                                              class="btn-img el-icon-edit"
+                                              @click="edit_img('images-information')"></span>
+                                        <img v-if="lookEditForm.payment_information"
+                                             class="btn-img btn-i-img"
+                                             @click="download_img(lookEditForm.payment_information)"
+                                             width="20px"
+                                             height="20px"
+                                             src="../../../../assets/download.svg">
+                                    </div>
+                                </div>
+
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                </template>
+                <el-row>
+                    <el-col :span="22">
+                        <el-form-item label="结算方式：" prop="balance_type">
+                            <label-select
+                                :edit="!isLook"
+                                placeholder="请选择结算方式"
+                                v-model="lookEditForm.balance_type"
+                                :lists="balanceList"
+                            ></label-select>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="22">
+                        <el-form-item label="结算方式备注：">
+                            <ui-input type="textarea" v-model="lookEditForm.balance_remark" :edit="!isLook"></ui-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="22">
+                        <el-form-item label="支付方式：">
+                            <label-select
+                                :edit="!isLook"
+                                :lists="payList"
+                                v-model="lookEditForm.pay_type"
+                                clearable
+                                placeholder="请选择支付方式..."
+                                @change="select_pay_type"
+                            ></label-select>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <div v-if="lookEditForm.pay_type === 2">
+                    <el-row>
+                        <el-col :span="22">
+                            <el-form-item label="开户行：" prop="bank">
+                                <ui-input v-model="lookEditForm.bank" :edit="!isLook"></ui-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="22">
+                            <el-form-item label="账号：" prop="bank_account">
+                                <ui-input v-model="lookEditForm.bank_account" :edit="!isLook"></ui-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="22">
+                            <el-form-item label="开户名：" prop="account_name">
+                                <ui-input v-model="lookEditForm.account_name" :edit="!isLook"></ui-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                </div>
+                <div v-if="lookEditForm.pay_type === 3">
+                    <el-row>
+                        <el-col :span="22">
+                            <el-form-item label="PayPal帐号：" prop="paypal">
+                                <ui-input v-model="lookEditForm.paypal" :edit="!isLook"></ui-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                </div>
+                <div v-if="lookEditForm.pay_type === 4">
+                    <el-row>
+                        <el-col :span="22">
+                            <el-form-item label="支付宝：">
+                                <ui-input v-model="lookEditForm.alipay" :edit="!isLook"></ui-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                </div>
+                <el-row>
+                    <label class="box-label">联系方式</label>
+                    <el-col :span="11">
+                        <el-form-item label="联系人：" prop="contacts">
+                            <ui-input v-model="lookEditForm.contacts" :edit="!isLook"></ui-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="11">
+                        <el-form-item label="职务：">
+                            <ui-input v-model="lookEditForm.contacts_job" :edit="!isLook"></ui-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="22">
+                        <el-form-item label="联系电话1：" prop="mobile">
+                            <ui-input v-model="lookEditForm.mobile" :edit="!isLook"></ui-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="11">
+                        <el-form-item label="联系人2：">
+                            <ui-input v-model="lookEditForm.contacts2" :edit="!isLook"></ui-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="11">
+                        <el-form-item label="职务：">
+                            <ui-input v-model="lookEditForm.contacts2_job" :edit="!isLook"></ui-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="22">
+                        <el-form-item label="联系电话2：" prop="mobile2">
+                            <ui-input v-model="lookEditForm.mobile2" :edit="!isLook"></ui-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="22">
+                        <el-form-item label="固定电话："  prop="tel">
+                            <ui-input v-model="lookEditForm.tel" :edit="!isLook"></ui-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="22">
+                        <el-form-item label="Email：" prop="email">
+                            <ui-input v-model="lookEditForm.email" :edit="!isLook"></ui-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="22">
+                        <el-form-item label="QQ号："  prop="qq">
+                            <ui-input v-model="lookEditForm.qq" :edit="!isLook"></ui-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="22">
+                        <el-form-item label="阿里旺旺：">
+                            <ui-input v-model="lookEditForm.ww" :edit="!isLook"></ui-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="22">
+                        <el-form-item label="微信：">
+                            <ui-input :edit="!isLook" v-model="lookEditForm.weixin"></ui-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="22">
+                        <el-form-item label="邮编：" prop="zipcode">
+                            <ui-input type="number" v-model="lookEditForm.zipcode" :edit="!isLook"></ui-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="22">
+                        <el-col :span="9">
+                            <el-form-item prop="province_id" label="地址：">
+                            <label-select
+                                :edit="!isLook"
+                                :clearable="true"
+                                v-model="lookEditForm.province_id"
+                                placeholder="请选择省"
+                                :lists="provinceList"
+                                @change="select_province"
+                            ></label-select>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="7">
+                            <el-form-item prop="city_id" label="省/市/州：" label-width="70px">
+                                <label-select
+                                    :edit="!isLook"
+                                    :clearable="true"
+                                    v-model="lookEditForm.city_id"
+                                    placeholder="请选择市"
+                                    :lists="cityOption"
+                                    @change="select_city"
+                                ></label-select>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                            <el-form-item prop="area_id" label="地区/市/县：" label-width="82px">
+                                <label-select
+                                    :edit="!isLook"
+                                    :clearable="true"
+                                    v-model="lookEditForm.area_id"
+                                    placeholder="请选择区"
+                                    :lists="areaOption"
+                                    @change="select_area"
+                                ></label-select>
+                            </el-form-item>
+                        </el-col>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="22">
+                        <el-form-item prop="address" label="详细地址：">
+                            <ui-input v-model="lookEditForm.address" :edit="!isLook" placeholder="请填写详细地址"></ui-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="22">
+                        <el-form-item label="备注：">
+                            <label :class="[isLook?'pretend':'']" style="word-break:break-all;">{{lookEditForm.remark}}</label>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row v-if="!isLook">
+                    <el-col :span="22">
+                        <el-form-item label="添加备注：">
+                            <ui-input type="textarea" v-model="remark2" :edit="!isLook"></ui-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+            </el-form>
+            <el-row v-if="isLook" class="mb-xs mt-xs">
+                <el-button size="mini" type="primary" class="fr" @click="btnclick">{{btnName}}</el-button>
+            </el-row>
+            <card label="操作日志" class="mt-sm" v-show="loghidden">
+                <el-table
+                    :data="actionLog"
+                    v-loading="logLoading"
+                    element-loading-text="玩命加载中"
+                    highlight-current-row
+                    style="max-height: 400px;">
+                    <el-table-column
+                        width="60"
+                        label="操作人"
+                        prop="operator"
+                        show-overflow-tooltip>
+                    </el-table-column>
+                    <el-table-column
+                        label="日期"
+                        width="140"
+                        inline-template
+                        show-overflow-tooltip>
+                        <span>{{row.operating_time}}</span>
+                    </el-table-column>
+                    <el-table-column
+                        inline-template
+                        width="70"
+                        label="操作状态"
+                        show-overflow-tooltip>
+                        <div>{{row.status}}</div>
+                    </el-table-column>
+                    <el-table-column
+                        label="操作记录"
+                        inline-template>
+                        <ui-tip :content="row.content" :width="88"></ui-tip>
+                    </el-table-column>
+                </el-table>
+            </card>
+            <blowup-image v-model="imgDialog" :img-path="imgPath" :title="`查看大图`"></blowup-image>
+            <div slot="footer">
+                <el-button v-if="isLook" size="mini" @click.native="close">关闭</el-button>
+                <div v-else>
+                    <request-button req-key="update_look_edit_form" :mintime="200" @click="update(lookEditForm.id)">确定</request-button>
+                    <el-button  size="mini" @click.native="cancel">取消</el-button>
+                </div>
+            </div>
+        </page-dialog>
+    </el-row>
+</template>
+<style lang="stylus">
+    .suppliers-edit{
+        table.template td, .el-table td, table.template th, .el-table th {
+        padding: 0;
+        height: 26px;
+        text-align: center;
+        box-sizing: border-box;
+        border-right: 1px solid #e0e6ed;
+        border-bottom: 1px solid #e0e6ed;
+        }
+        .el-table__body-wrapper {
+            overflow-x: hidden;
+            overflow-y: scroll;
+            position: relative;
+        }
+        .p-table-list-td-text{
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .allli {
+            height: 100px;
+            width: 100px;
+            display: inline-block;
+            position: relative;
+            border: 1px solid #CFCFCF;
+            transition: all .3s ease;
+            margin-top: 15px;
+            &:hover {
+                transform: scale(1.1);
+                box-shadow: 0 0 5px #ccc;
+                z-index: 1;
+            }
+            &:hover .tool {
+                height: 30px;
+            }
+        }
+        .tool {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background-color: rgba(0, 0, 0, .5);
+            text-align: center;
+            overflow: hidden;
+            transition: all .3s ease;
+            .btn-img {
+                box-sizing: border-box;
+                width: 22px;
+                height: 22px;
+                display: inline-block;
+                color: #fff;
+                font-size: 1.3rem;
+                cursor: pointer;
+                margin: 5px 2px;
+                overflow: hidden;
+                line-height: 22px;
+                &:hover {
+                    border-radius: 2px;
+                    background-color: rgba(0, 0, 0, .55);
+                }
+                &:active {
+                    background-color: rgba(0, 0, 0, .9);
+                }
+                > .i {
+                    color: #fff;
+                }
+            }
+            .btn-i-img{
+                width:20px !important;
+                height:20px !important;
+                margin-bottom 8px !important;
+            }
+        }
+        .pretend{
+            color:#008BCE !important;
+            word-break:break-all;
+        }
+        .box-label{
+            width: 100%;
+            display: block;
+            border-bottom: 1px solid #e0e6ed;
+            margin-bottom: 10px;
+        }
+    }
+
+</style>
+<script>
+    import pageDialog from '../../../../components/page-dialog.vue';
+    import {
+        api_supplier_Level,
+        api_supplier_type,
+        api_supplier_transaction,
+        api_supplier_payment,
+        api_supplier_area,
+        api_get_invoice,api_get_balance,
+        api_get_supplier_id_log
+    } from '../../../../api/assert-sup';
+    import {telPhone,phone,email,qq,url,integer}from '../../../../define/validator_reg';
+    import {downloadFile} from '@/lib/http';
+    export default{
+        data(){
+            let checkPhone = (rule,value,callback)=>{
+                if(value){
+                    return !telPhone.test(value)&&!phone.test(value)?callback(new Error("号码格式输入有误，请重新输入！")):callback();
+                }else{
+                    callback();
+                }
+            };
+            let checkFax = (rule,value,callback)=>{
+                if(value){
+                    return !telPhone.test(value)?callback(new Error("固定电话格式输入有误，请重新输入！")):callback();
+                }else{
+                    callback();
+                }
+            };
+            let checkEmail = (rule,value,callback)=> {
+                if (value) {
+                    return !email.test(value) ? callback(new Error("邮箱格式输入有误，请重新输入！")) : callback();
+                } else {
+                    callback();
+                }
+            };
+            let checkUrl = (rule,value,callback)=>{
+                if(value){
+                    return !url.test(value) ? callback(new Error("链接输入有误！")):callback();
+                }else{
+                    callback();
+                }
+            };
+            let checkNumber = (rule,value,callback)=>{
+                if(value){
+                    return !integer.test(value) ? callback(new Error("邮编格式非法，请重新输入！")):callback();
+                }else{
+                    callback();
+                }
+            };
+            let checkQQ = (rule,value,callback)=>{
+                if(value){
+                    return !qq.test(value) ? callback(new Error("QQ格式输入有误，请重新输入！")):callback();
+                }else{
+                    callback(new Error("QQ号必填！"));
+                }
+            }
+            return{
+                imgDialog:false,
+                imgPath:'',
+                dialog:false,
+                dialogSize:"full",
+                remark2:"",
+                levelList:[],
+                typeList:[],
+                invoiceList:[],
+                balanceList:[],
+                payList:[],
+                district:{},
+                provinceList:[],
+                cityList:[],
+                areaList:[],
+                file:[],
+                information:[],
+                transactionTypeList:[],
+                rules:{
+                    company_name:[
+                        {required:"true",message:"名称不能为空",trigger:"blur,change"}
+                    ],
+                    type:[
+                        {required:"true",message:"供应商类型不能为空",trigger:"blur",type:"number"}
+                    ],
+                    invoice:[
+                        {required:"true",message:"发票类型不能为空",trigger:"blur",type:"number"}
+                    ],
+                    system_name:[
+                        {required:"true",message:"系统名称不能为空",trigger:"blur"}
+                    ],
+                    business_license:[
+                        {required:"true",message:"营业执照名称不能为空",trigger:"blur"}
+                    ],
+                    transaction_type:[
+                        {required:"true",message:"交易类型必填",trigger:"change",type:"number"}
+                    ],
+                    balance_type:[
+                        {required:"true",message:"结算方式不能为空",trigger:"blur",type:"number"}
+                    ],
+                    bank:[
+                        {required:"true",message:"开户行不能为空",trigger:"blur"}
+                    ],
+                    bank_account:[
+                        {required:"true",message:"帐号不能为空",trigger:"blur"}
+                    ],
+                    account_name:[
+                        {required:"true",message:"开户名不能为空",trigger:"blur"}
+                    ],
+                    paypal:[
+                        {required:"true",message:"PayPal帐号不能为空",trigger:"blur"}
+                    ],
+                    contacts:[
+                        {required:"true",message:"联系人不能为空",trigger:"blur"}
+                    ],
+                    tel:[
+                        {validator:checkFax,trigger:"blur,change"}
+                    ],
+                    mobile:[
+                        {validator:checkPhone,trigger:'blur,change'}
+                    ],
+                    mobile2:[
+                        {validator:checkPhone,trigger:'blur,change'}
+                    ],
+                    email:[
+                        {validator:checkEmail,trigger:'blur,change'}
+                    ],
+                    qq:[
+                        {required:"true",validator:checkQQ,trigger:'blur,change'}
+                    ],
+                    zipcode:[
+                        {validator:checkNumber,trigger:'blur,change'}
+                    ],
+                    address:[
+                        {required:"true",message:"详细地址必填",trigger:"blur,change"}
+                    ]
+                },
+                loghidden:false,
+                actionLog:[],
+                logLoading:false
+            }
+        },
+        mounted(){
+            this.dialog = this.value;
+        },
+        watch:{
+            dialog(val){
+                this.$emit("input",val);
+            },
+            value(val){
+                this.dialog = val;
+            },
+            information:{
+                immediate:true,
+                handler(val){
+                    if(this.lookEditForm.transaction_type===2&&val.length===0&&!this.lookEditForm.payment_information){
+                        this.rules.payment_information = [
+                            {required:"true",message:"必须上传付款资料",trigger:"change"}
+                        ];
+                    }else{
+                        this.rules.payment_information = [];
+                    }
+                }
+            },
+            'lookEditForm.payment_information':{
+                immediate:true,
+                handler(val){
+                    if(this.lookEditForm.transaction_type===2&&this.information.length===0&&!val){
+                        this.rules.payment_information = [
+                            {required:"true",message:"必须上传付款资料",trigger:"change"}
+                        ];
+                    }else{
+                        this.rules.payment_information = [];
+                    }
+                }
+            },
+            file:{
+                immediate:true,
+                handler(val){
+                    if(this.lookEditForm.transaction_type===2&&val.length===0&&!this.lookEditForm.business_file){
+                        this.rules.business_file = [
+                            {required:"true",message:"必须上传付款资料",trigger:"change"}
+                        ];
+                    }else{
+                        this.rules.business_file = [];
+                    }
+                }
+            },
+            'lookEditForm.business_file':{
+                immediate:true,
+                handler(val){
+                    if(this.lookEditForm.transaction_type===2&&this.file.length===0&&!val){
+                        this.rules.business_file = [
+                            {required:"true",message:"必须上传付款资料",trigger:"change"}
+                        ];
+                    }else{
+                        this.rules.business_file = [];
+                    }
+                }
+            },
+            'lookEditForm.transaction_type':{
+                immediate:true,
+                handler(val){
+                    if(val===2){
+                        this.rules.public_accounts = [
+                            {required:"true",message:"对公账户必填",trigger:"change"}
+                        ];
+                        this.rules.public_accounts_bank = [
+                            {required:"true",message:"对公开户行必填",trigger:"change"}
+                        ];
+                        this.rules.private_accounts = [
+                            {required:"true",message:"对私账户必填",trigger:"change"}
+                        ];
+                        this.rules.private_accounts_name = [
+                            {required:"true",message:"户名必填",trigger:"change"}
+                        ];
+                        this.rules.private_accounts_bank = [
+                            {required:"true",message:"对私开户行必填",trigger:"change"}
+                        ];
+                        if(!this.lookEditForm.business_file&&this.information.length===0) {
+                            this.rules.business_file = [
+                                {required: "true", message: "必须上传营业执照", trigger: "change"}
+                            ];
+                        }else{
+                            this.rules.business_file = [];
+                        }
+                        if(!this.lookEditForm.payment_information&&this.information.length===0) {
+                            this.rules.payment_information = [
+                                {required: "true", message: "必须上传付款资料", trigger: "change"}
+                            ];
+                        }else{
+                            this.rules.payment_information = [];
+                        }
+                    }else{
+                        this.rules.public_accounts = [];
+                        this.rules.public_accounts_bank = [];
+                        this.rules.private_accounts = [];
+                        this.rules.private_accounts_name = [];
+                        this.rules.private_accounts_bank = [];
+                        this.rules.payment_information = [];
+                        this.rules.business_file = [];
+                    }
+                }
+            },
+            provinceList:{
+                immediate: true,
+                handler(val) {
+                    if (val.length > 0) {
+                        this.rules.province_id = [
+                            {required: "true", message: "地址必填", trigger: "change", type: 'number'}
+                        ];
+                    } else {
+                        this.rules.province_id = [];
+                    }
+                }
+            },
+            cityOption:{
+                immediate: true,
+                handler(val) {
+                    if (val.length > 0) {
+                        this.rules.city_id = [
+                            {required: "true", message: "省/市/州必填", trigger: "change", type: 'number'}
+                        ];
+                    } else {
+                        this.rules.city_id = [];
+                    }
+                }
+            },
+            areaOption:{
+                immediate: true,
+                handler(val) {
+                    if (val.length > 0) {
+                        this.rules.area_id = [
+                            {required: "true", message: "地区/市/县必填", trigger: "change", type: 'number'}
+                        ];
+                    } else {
+                        this.rules.area_id = [];
+                    }
+                }
+            },
+            'lookEditForm'(val){
+                if(val.transaction_type===0){
+                    val.transaction_type = '';
+                }
+            }
+        },
+        created(){
+            this.init();
+            this.get_supplier_type();
+            this.supplier_transaction();
+        },
+        computed:{
+            btnName() {
+                if (this.loghidden) {
+                    return "隐藏操作日记"
+                } else {
+                    return "显示操作日记"
+                }
+            },
+            comTransaction(){
+                if(this.transactionTypeList instanceof Array){
+                    let ret = this.transactionTypeList.findRet(row=>{
+                        if(row.value===this.lookEditForm.transaction_type){
+                            return row.label;
+                        }
+                    });
+                    return ret;
+                }
+            },
+            comTitle(){
+                if(this.typeList instanceof Array){
+                    let ret = this.typeList.findRet(row=>{
+                        if(row.value===this.lookEditForm.type){
+                            return row.label;
+                        }
+                    });
+                    return ret;
+                }
+            },
+            cityOption(){
+                let city = [];
+                this.cityList.length>0&&(
+                    this.cityList.map(row=>{
+                        if(row.pid===this.lookEditForm.province_id){
+                            city.push({label:row.label,value:row.value});
+                        }
+                    })
+                )
+                return city;
+            },
+            areaOption(){
+                let area =[];
+                this.areaList.length>0&&(
+                    this.areaList.map(row=>{
+                        if(row.pid===this.lookEditForm.city_id){
+                            area.push({label:row.label,value:row.value});
+                        }
+                    })
+                )
+                return area;
+            },
+            fileShow(){
+                if(this.file.length>0){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+        },
+        methods:{
+            img_path(path){
+                return path?`${config.apiHost}${path}`:''
+            },
+            btnclick() {
+                this.loghidden = !this.loghidden;
+                if(this.actionLog.length===0) {
+                    this.logLoading = true;
+                    this.$http(api_get_supplier_id_log, this.lookEditForm.id).then(res => {
+                        this.actionLog = res;
+                        this.logLoading = false;
+                    }).catch(code => {
+                        this.$message({type: 'error', message: code.message || code});
+                    })
+                }
+            },
+            open(){
+                this.provinceList = [];
+                this.cityList = [];
+                this.areaList = [];
+                this.init();
+                this.remark2="";
+                this.file=[];
+                this.information = [];
+                this.actionLog = [];
+                this.loghidden = false;
+            },
+            cc(val){
+                console.log(val);
+            },
+            init(){
+                /*供应商等级*/
+                this.$http(api_supplier_Level).then(res=>{
+                    if(res){
+                        this.levelList = res.map(row=>{
+                            return {
+                                label:row.name,
+                                value:row.label,
+                            }
+                        });
+                    }
+
+                }).catch(code=>{
+                    console.log(code);
+                });
+                /*支付方式*/
+                this.$http(api_supplier_payment).then(res=>{
+                    if(res){
+                        this.payList = res.map(row=>{
+                            return {
+                                label:row.name,
+                                value:row.label,
+                            }
+                        });
+                    }
+                }).catch(code=>{
+                    console.log(code);
+                });
+                /*结算方式*/
+                this.$http(api_get_balance).then(res=>{
+                    this.balanceList = res.map(row=>{
+                        return {
+                            label:row.name,
+                            value:row.label,
+                        }
+                    });
+                }).catch(code=>{
+                    console.log(code);
+                });
+                /*发票类型*/
+                this.$http(api_get_invoice).then(res=>{
+                    this.invoiceList = res.map(row=>{
+                        return {
+                            label:row.name,
+                            value:row.label
+                        };
+                    });
+                }).catch(code=>{
+                    console.log(code);
+                });
+                /*获取省市县*/
+                this.$http(api_supplier_area).then(res=>{
+                    this.district = res;
+                    let city ="";
+                    let area ="";
+                    for(var i in this.district){
+                        this.provinceList.push({label:this.district[i].name,value:this.district[i].id,pid:this.district[i].pid});
+                        this.district[i]._child&&(city=this.district[i]._child);
+                        for(var c in city){
+                            this.cityList.push({label:city[c].name,value:city[c].id,pid:city[c].pid});
+                            city[c]._child&&(area = city[c]._child);
+                            for(var a in area){
+                                this.areaList.push({label:area[a].name,value:area[a].id,pid:area[a].pid});
+                            }
+                        }
+                    }
+                }).catch(code=>{
+                    console.log(code);
+                })
+            },
+//          ---------------------------------  选择支付方式
+            select_pay_type(val){
+                console.log(val);
+            },
+//            ---------------------------------  选择省
+            select_province(val){
+                this.$emit("select-province",val);
+            },
+//            ---------------------------------  选择市
+            select_city(val){
+                this.$emit("select-city",val);
+            },
+//            ---------------------------------  选择县
+            select_area(val){},
+//            -------------------------------  保存
+            update(id){
+               this.$refs.lookEditForm.validate((bool)=>{
+                   if(bool){
+                       let c = this.lookEditForm;
+                       if(!c.mobile&&!c.mobile2&&!c.tel&&!c.fax_no&&!c.email&&!c.qq&&!c.ww) {
+                           this.$message({type: "warning", message: `请至少填写一种联系方式后再提交`});
+                           this.$reqKey('update_look_edit_form',false);
+                           return
+                       }
+                       if(this.lookEditForm.transaction_type===2) {
+                           if (this.file.length > 0) {
+                               let size = this.file.map(row => row.size).reduce((size, imgSize) => size += imgSize);
+                               const MEGABYTE = 1048576;
+                               if (size > MEGABYTE) {
+                                   this.$message({type: 'warning', message: '附件过大，请选择1M以内的图片！'});
+                                   this.$reqKey('update_look_edit_form', false);
+                                   return
+                               }
+                               this.$set(this.lookEditForm, 'file', this.file);
+                           } else {
+                               this.$set(this.lookEditForm, 'file', this.lookEditForm.business_file);
+                           }
+                           if (this.information.length > 0) {
+                               let size = this.information.map(row => row.size).reduce((size, imgSize) => size += imgSize);
+                               const MEGABYTE = 1048576;
+                               if (size > MEGABYTE) {
+                                   this.$message({type: 'warning', message: '附件过大，请选择1M以内的图片！'});
+                                   this.$reqKey('update_look_edit_form', false);
+                                   return
+                               }
+                               this.$set(this.lookEditForm, 'information', this.information);
+                           } else {
+                               this.$set(this.lookEditForm, 'information', this.lookEditForm.payment_information);
+                           }
+                       }
+                       this.$emit("update",id,this.remark2);
+                   }else {
+                       this.$reqKey('update_look_edit_form',false);
+                   }
+               })
+            },
+//            -------------------------------  取消
+            cancel(){
+                this.dialog = false;
+            },
+//            -------------------------------   关闭
+            close(){
+                this.dialog = false;
+            },
+//           供应商类型
+            get_supplier_type(){
+                this.$http(api_supplier_type).then(res=>{
+                    this.typeList = res.map(row=>{
+                        return {
+                            value:row.label,
+                            label:row.name
+                        }
+                    });
+                }).catch(code=>{
+                    console.log(code);
+                })
+            },
+//          交易类型
+            supplier_transaction(){
+                this.$http(api_supplier_transaction).then(res=>{
+                    this.transactionTypeList = res.map(row=>{
+                        return {
+                            value:row.label,
+                            label:row.name
+                        }
+                    });
+                }).catch(code=>{
+                    console.log(code);
+                })
+            },
+            edit_img(key){
+                this.$refs[key].input_click();
+            },
+            download_img(file) {
+                let url = `${config.apiHost}supplier/download-image`;
+                downloadFile({
+                    url,
+                    get:{file:file},
+                    fileName:file.slice(file.lastIndexOf('/')-1,file.lastIndexOf('.')),
+                    suffix:file.slice(file.lastIndexOf('.'))
+                });
+            },
+            remove_img(image,key){
+                if(image.length===0){
+                    this.lookEditForm[key] = '';
+                }else{
+                    this.$refs[key==='business_file'?'images-file':'images-information'].remove(image[0]);
+                }
+            },
+            //查看大图
+            search_img(image){
+                if(typeof image==='string'&&!!image){
+                    this.imgPath = this.img_path(image).replace("_60x60","_500x500");
+                }else{
+                    this.imgPath = image;
+                }
+                this.imgDialog = true;
+            },
+            update_file(key){
+                this.lookEditForm[key] = '';
+            }
+        },
+        filters:{
+            dataFilter(val) {
+                return datef('YYYY-MM-dd HH:mm:ss', val);
+            },
+        },
+        props:{
+            lookEditForm:{
+                required:true,
+                type:Object
+            },
+            value:{},
+            isLook:{
+                required:true,
+                type:Boolean
+            },
+            title:{
+                required:true,
+                type:String
+            }
+        },
+        components:{
+            pageDialog,
+            uiInput:require('../../../../components/ui-input.vue').default,
+            labelSelect:require('../../../../components/label-select.vue').default,
+            uiSelect:require('../../../../components/ui-select.vue').default,
+            requestButton:require('../../../../global-components/request-button.vue').default,
+            imageUpload:require("./image-upload.vue").default,
+            blowupImage:require("@/components/blowup-image.vue").default,
+            purchaser: require('../../../../api-components/purchaser.vue').default,
+            card:require('@/components/card').default,
+            uiTip:require('@/components/ui-tip').default
+        }
+    }
+
+</script>

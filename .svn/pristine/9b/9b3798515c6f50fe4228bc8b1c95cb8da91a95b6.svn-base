@@ -1,0 +1,206 @@
+<template>
+    <div v-loading="loading" element-loading-text="玩命加载中...">
+        <el-tabs v-model="activeName">
+            <el-tab-pane label="仓库地址" name="warehouseAddress">
+                <entrepot-address ref="address"
+                                  :entrepot-id="entrepotId"
+                                  @show-height="show_height"
+                                  :form="address"
+                                  v-model="isEdit"
+                                  :isAdd='isAdd'
+                                  @cancelCreate="cancel_create"
+                                  @save='save'
+                                  @update='update'></entrepot-address>
+            </el-tab-pane>
+            <el-tab-pane label="邮寄方式" name="shipWay">
+                <entrepot-shipping :entrepot-id="entrepotId"
+                                   :max-height="maxHeight"
+                                   :lists="shipping"
+                                   :isAdd='isAdd'
+                                   :form="address"
+                                   @save_mail="save_mail"
+                                   v-model="third"></entrepot-shipping>
+            </el-tab-pane>
+            <el-tab-pane label="参数设置" name="systemParam">
+                <entrepot-config :id="entrepotId" :system-data="systemData" @upload="upload"></entrepot-config>
+            </el-tab-pane>
+        </el-tabs>
+    </div>
+</template>
+<style lang="stylus">
+    .system-placeholder {
+        text-align: center;
+        margin-top: 20px;
+        color: #ccc;
+    }
+</style>
+<script>
+    import {store_check} from '@/api/storeManagement'
+
+    export default {
+        data() {
+            return {
+                isEdit: false,
+                isAdd: false,
+                third: false,
+                maxHeight: 400,
+                loading: true,
+                shipping: [],
+                activeName: 'warehouseAddress',
+                address: {
+                    code: '',
+                    name: '',
+                    type: 1,
+                    country_code: '',
+                    status: 1,
+                    address: '',
+                    zip: '',
+                    contact_name: '',
+                    phone: '',
+                    state_or_provice: '',
+                    city: '',
+                    area: '',
+                    interface_token: '',
+                    interface_user_name: '',
+                    entrepot: '',
+                    operation_mode: 11,
+                    is_virtual_transit: false,
+                    transit_warehouse_id: '',
+                    parent_warehouse_id: '',
+                },
+                systemData: {
+                    singleOrMore: 0,
+                    moreCarrier: 0,
+                    bind_picking: 0,
+                    picking_max_quantity: 0,
+                    package_weight_min_deviation: 0,
+                    package_weight_max_deviation: 0,
+                    collection_weight_min_deviation: 0,
+                    collection_weight_max_deviation: 0,
+                    single_manual_value: 0,
+                    is_allow_stop: 0,
+                    is_divide_platform: 0,
+                    is_auto_check: 0,
+                    test_print: 0,
+                    shelf_days: 0,
+                },
+            }
+        },
+        methods: {
+            quote_fun() {
+                this.$refs.address.cite_fun()
+            },
+            cancel_create() {
+                this.$emit('cancelCreate', this.isEdit);
+            },
+            save(data) {
+                this.$emit('save', data);
+            },
+            update(form) {
+                this.$emit('update', form);
+            },
+            save_mail(entrepotId) {
+                this.$http(store_check, entrepotId).then(res => {
+                    this.shipping = res.shipList;
+                }).catch(code => {
+                    this.$message({
+                        type: "error",
+                        message: code.message || code
+                    });
+                });
+            },
+            show_height(height) {
+                this.maxHeight = height;
+            },
+            upload(data) {
+            }
+        },
+        watch: {
+            entrepotId(val) {
+                if (val) {
+                    this.isEdit = false;
+                    this.isAdd = false;
+                    this.loading = true;
+                    this.$http(store_check, val).then(res => {
+                        this.address.code = res.code;
+                        this.address.name = res.name;
+                        this.address.type = res.type;
+                        this.address.country_code = res.country_code;
+                        this.address.status = res.status;
+                        this.address.address = res.address;
+                        this.address.zip = res.zip;
+                        this.address.contact_name = res.contact_name;
+                        this.address.phone = res.phone;
+                        this.address.state_or_provice = res.state_or_provice;
+                        this.address.city = res.city;
+                        this.address.area = res.area;
+                        this.address.operation_mode = res.operation_mode;
+                        this.shipping = res.shipList;
+                        this.address.third = res.third;
+                        this.address.entrepot = res.code;
+                        this.address.is_virtual_transit = !!res.is_virtual_transit;
+                        this.address.transit_warehouse_id = res.transit_warehouse_id === 0 ? '' : res.transit_warehouse_id;
+                        this.address.parent_warehouse_id = res.parent_warehouse_id || '';
+                        this.third = res.third;
+                        this.systemData = {
+                            singleOrMore: res.singleOrMore,
+                            moreCarrier: res.moreCarrier,
+                            bind_picking: res.bind_picking,
+                            picking_max_quantity: res.picking_max_quantity,
+                            package_weight_min_deviation: res.package_weight_min_deviation,
+                            package_weight_max_deviation: res.package_weight_max_deviation,
+                            collection_weight_min_deviation: res.collection_weight_min_deviation,
+                            collection_weight_max_deviation: res.collection_weight_max_deviation,
+                            single_manual_value: res.single_manual_value,
+                            is_allow_stop: res.is_allow_stop,
+                            is_divide_platform: res.is_divide_platform,
+                            is_auto_check: res.is_auto_check,
+                            test_print: res.test_print,
+                            shelf_days: res.shelf_days,
+                        };
+                        this.loading = false
+                    }).catch(code => {
+                        this.$message({
+                            showClose: true,
+                            type: 'error',
+                            message: code.message || code,
+                        });
+                    })
+                } else {
+                    this.activeName = 'warehouseAddress';
+                    this.address.code = '';
+                    this.address.name = '';
+                    this.address.type = 1;
+                    this.address.country_code = '';
+                    this.address.status = 1;
+                    this.address.address = '';
+                    this.address.zip = '';
+                    this.address.contact_name = '';
+                    this.address.phone = '';
+                    this.address.state_or_provice = '';
+                    this.address.city = '';
+                    this.address.area = '';
+                    this.address.is_virtual_transit = false;
+                    this.shipping = [];
+                    this.address.entrepot = '';
+                    this.address.transit_warehouse_id = '';
+                    this.address.parent_warehouse_id = '';
+                    this.address.operation_mode = 11;
+                    this.isEdit = 'create';
+                    this.isAdd = true
+                }
+            },
+        },
+        props: {
+            entrepotId: {
+                required: true,
+                type: Number
+            },
+        },
+        components: {
+            entrepotAddress: require('./entrepot-address.vue').default,
+            entrepotShipping: require('./entrepot-shipping.vue').default,
+            entrepotConfig: require('./entrepot-config.vue').default,
+        }
+    }
+</script>

@@ -1,0 +1,129 @@
+<template>
+    <div class="p-account-infomarion">
+        <search-card @search="$emit('search')"
+                     @enter="$emit('search')"
+                     :params="searchData"
+                     :clears="clears">
+            <div class="mb-xs">
+                <label-buttons label="状态："
+                               :buttons="states"
+                               @select="select_status">
+                </label-buttons>
+            </div>
+            <label-item label="公司名称：" class="inline">
+                <el-select class="s-width-default"
+                           v-sf.id
+                           v-model="searchData.id"
+                           filterable
+                           clearable
+                           placeholder="请选择">
+                    <el-option
+                            v-for="item in companyOption"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                    </el-option>
+                </el-select>
+            </label-item>
+            <label-item label="公司法人：" class="ml-sm mr-mini">
+                <el-input type="text"
+                          clearable
+                          v-sf.corporation
+                          v-model="searchData.corporation"
+                          class="s-width-middle">
+                </el-input>
+            </label-item>
+            <label-item label="选择时间：" class="ml-sm mr-mini">
+                <el-date-picker
+                        v-model="searchData.time_start"
+                        type="date"
+                        v-sf.time_start
+                        placeholder="选择日期"
+                        class="inline date"
+                        :picker-options="inputTimeStart">
+                </el-date-picker>
+                &nbsp;--&nbsp;
+                <el-date-picker
+                        v-model="searchData.time_end"
+                        type="date"
+                        v-sf.time_end
+                        placeholder="选择日期"
+                        class="inline date mr-sm"
+                        :picker-options="inputTimeEnd">
+                </el-date-picker>
+            </label-item>
+        </search-card>
+    </div>
+</template>
+
+<script>
+    import labelButtons from '../../../components/label-buttons.vue';
+    import {api_get_account_company_} from '@/api/company-info';
+    export default {
+        name: "search",
+        data(){
+            return{
+                companyOption:[],
+                inputTimeStart: {
+                    disabledDate: (time)=> {
+                        if(this.searchData.time_end){
+                            return time.getTime() > this.searchData.time_end;
+                        }else {
+                            return false
+                        }
+                    }
+                },//开始时间
+                inputTimeEnd: {
+                    disabledDate: (time)=> {
+                        if(this.searchData.time_start){
+                            return time.getTime() < this.searchData.time_start;
+                        }else {
+                            return false
+                        }
+                    }
+                },//结束时间
+                states:[
+                    {label:'全部',value:0},
+                    {label:'已启用',value:1},
+                    {label:'已停用',value:2},
+                ]
+            }
+        },
+        mounted(){
+            this.initname()
+        },
+        methods:{
+            initname(){
+                this.$http(api_get_account_company_).then(res=>{
+                    this.companyOption=res.data.map(val=>{
+                        return{
+                            label:val.company,
+                            value:val.id
+                        }
+                    });
+                }).catch(({fail, error}) =>{
+                    fail&&this.$message({type:'warning',message:fail||fail});
+                    error&&this.$message({type:'error', message:error||error});
+                });
+            },
+            select_status(index,item){
+                console.log(index,item,'tets');
+            }
+        },
+        props: {
+            clears:{},
+            searchData:{},
+        },
+        components: {
+            labelButtons,
+            labelItem:require('../../../components/label-item.vue').default,
+            selectRemote:require('../../../components/select-remote.vue').default,
+            scrollSelect:require('../../../components/scroll-select.vue').default,
+            searchCard:require('../../../components/search-card.vue').default
+        },
+    }
+</script>
+
+<style scoped>
+
+</style>

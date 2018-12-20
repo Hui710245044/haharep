@@ -1,0 +1,8 @@
+export default{
+    list:'Listing管理',
+    Aup:'Amazon刊登',
+    notPub:'未刊登',
+    record:'刊登记录',
+    drafts:'草稿箱',
+    all:'全部'
+}
